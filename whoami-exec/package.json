@@ -1,0 +1,78 @@
+{
+  "_from": "whoami-exec@^1.2.0",
+  "_id": "whoami-exec@1.2.2",
+  "_inBundle": false,
+  "_integrity": "sha1-bCisJvVNO71JsvR4vIMUSJ7raZI=",
+  "_location": "/whoami-exec",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "whoami-exec@^1.2.0",
+    "name": "whoami-exec",
+    "escapedName": "whoami-exec",
+    "rawSpec": "^1.2.0",
+    "saveSpec": null,
+    "fetchSpec": "^1.2.0"
+  },
+  "_requiredBy": [
+    "/sublime"
+  ],
+  "_resolved": "https://registry.npmjs.org/whoami-exec/-/whoami-exec-1.2.2.tgz",
+  "_shasum": "6c28ac26f54d3bbd49b2f478bc8314489eeb6992",
+  "_spec": "whoami-exec@^1.2.0",
+  "_where": "C:\\Users\\micha\\Desktop\\node_modules\\sublime",
+  "author": {
+    "name": "Stephen Rodriguez",
+    "email": "steprodriguez10@gmail.com",
+    "url": "http://www.stephenrodriguez.info/"
+  },
+  "bugs": {
+    "url": "https://github.com/Stephn-R/whoami/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "A simple module for finding the name of the logged in user",
+  "devDependencies": {
+    "jest": "^0.1.40",
+    "jest-cli": "^0.4.15"
+  },
+  "engines": {
+    "node": [
+      "0.10.x",
+      "0.12.x"
+    ]
+  },
+  "homepage": "https://github.com/Stephn-R/whoami#readme",
+  "keywords": [
+    "whoami",
+    "who",
+    "am",
+    "i",
+    "username",
+    "system"
+  ],
+  "license": "MIT",
+  "main": "whoami.js",
+  "name": "whoami-exec",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stephn-R/whoami.git"
+  },
+  "scripts": {
+    "test": "jest --verbose --coverage"
+  },
+  "version": "1.2.2",
+  "warnings": [
+    {
+      "code": "ENOTSUP",
+      "required": {
+        "node": [
+          "0.10.x",
+          "0.12.x"
+        ]
+      },
+      "pkgid": "whoami-exec@1.2.2"
+    }
+  ]
+}

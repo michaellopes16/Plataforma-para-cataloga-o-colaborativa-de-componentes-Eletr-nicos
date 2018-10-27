@@ -8,9 +8,41 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/compiler/bootstrap.css">
     <link rel="stylesheet" href="bootstrap/compiler/style.css">
+    <script>
+       function MostrarAlerta(el) {
+        var display = document.getElementById(el).style.display;
+        if(display == "none")
+            document.getElementById(el).style.display = 'block';
+          //carregar a página e só depois exibir o conteudo
+    }
 
+    function valirdarUsuario(){
+      $nomeUsuario = $('#ID_Campo_nomeUsuario').val();
 
-    <title>Eletronics Component Catalog DMI</title>
+      $.POST('conexao/cadastrarUsuario.php',function(retorna){
+            if(retorna == 1)
+             {
+             // igual à 0 ok
+             alert('Usuário Já Cadastro')
+
+             <?php
+              echo "usuário já Cadastro" 
+             ?>
+
+             }
+             else if(retorna == 2)
+             {
+             // diferente de 0 erro
+             alert('Cadastro realizado')
+             }
+             else{
+              alert('Ocorreu um erro')
+             }
+      }
+
+    </script>
+
+  <title>Eletronics Component Catalog DMI</title>
   </head>
   <body>
 
@@ -27,36 +59,38 @@
          </a>
 
        </nav>
-     <div class="container-fluid  d-flex align-items-center flex-column bd-highlight quadradoCadastro">
 
-        <form  data-toggle="validator" role="form">
+<!-- action="conexao/cadastrarUsuario.php"  -->
+
+     <div class="container-fluid  d-flex align-items-center flex-column bd-highlight quadradoCadastro" >
+        <form  method="POST" action="ControleUsuario.php" data-toggle="validator" role="form">
           <h5 class="modal-title mb-3 mt-4" align="center"><b>Realizar Cadastro</b></h5>
           <div class="form-group" align="start">
             <label for="ID_Campo_nomeUsuario"><b>Escolha um Nome de Usuário</b></label>
-            <input type="text" class="form-control" id="ID_Campo_nomeUsuario" aria-describedby="emailHelp" placeholder="Digite um nome de usuário" required>
+            <input type="text" name="nomeUsuario" class="form-control" id="ID_Campo_nomeUsuario" aria-describedby="emailHelp" placeholder="Digite um nome de usuário" required>
           </div>
           <div class="form-group" align="start">
             <label for="ID_Campo_nome"><b>Nome</b></label>
-            <input type="text" class="form-control" id="ID_Campo_nome" aria-describedby="emailHelp" placeholder="Digite seu nome" required>
+            <input type="text" name="primeiroNome" class="form-control" id="ID_Campo_nome" aria-describedby="emailHelp" placeholder="Digite seu nome" required>
           </div>
           <div class="form-group" align="start">
             <label for="ID_Campo_sobrenome"><b>Sobre Nome</b></label>
-            <input type="text" class="form-control" id="ID_Campo_sobrenome" aria-describedby="emailHelp" placeholder="Digite seu Sobre Nome" required>
+            <input type="text" name="sobreNome" class="form-control" id="ID_Campo_sobrenome" aria-describedby="emailHelp" placeholder="Digite seu Sobre Nome" required>
           </div>
           <div class="form-group" align="start">
             <label for="ID_Campo_Email"><b>E-mail</b></label>
-            <input type="email" class="form-control" id="ID_Campo_Email" aria-describedby="emailHelp" placeholder="Digite seu e-mail" required>
+            <input type="email" name="email" class="form-control" id="ID_Campo_Email" aria-describedby="emailHelp" placeholder="Digite seu e-mail" required>
             <div class="help-block with-errors"></div>
             <small id="emailHelp" class="form-text text-muted">Seu e-mail ficará registrado nos seus futuros projetos</small>
           </div>
           <div class="form-group" align="start">
             <label for="ID_Campo_senha"><b>Senha</b></label>
-            <input type="password" class="form-control" id="ID_Campo_senha" placeholder="Senha" data-minlength="6" required>
+            <input type="password" name="senha" class="form-control" id="ID_Campo_senha" placeholder="Senha" data-minlength="6" required>
              <span class="help-block">Mínimo de seis (6) digitos</span>
           </div>
           <div class="form-group" align="start">
             <label for="ID_Campo_senha_confirmacao"><b>Confirme a Senha</b></label>
-            <input type="password" class="form-control" id="ID_Campo_senha_confirmacao" placeholder="Confirme a Senha"  data-match="#ID_Campo_senha" data-match-error="Atenção! As senhas não estão iguais." required>
+            <input type="password" name="confirmarSenha" class="form-control" id="ID_Campo_senha_confirmacao" placeholder="Confirme a Senha"  data-match="#ID_Campo_senha" data-match-error="Atenção! As senhas não estão iguais." required>
              <div class="help-block with-errors"></div>
           </div>
           <div class="form-group form-check">
@@ -64,17 +98,40 @@
             <label class="form-check-label" for="CheckLembrar">Lembrar</label>
           </div>
           <div class="container mt-4" align="center">
-            <a  class="btn btn-primary mr-2"  href="TelaGerenciarComponentes.html" type="submit" required>Cadastrar</a>
+            <button  class="btn btn-primary mr-2" type="submit" >
+            Cadastrar</button>
             <!-- 
-             <button href="TelaGerenciarComponentes.html" type="submit" class="btn btn-primary ">Cadastro 2</button>
+             <button href="TelaGerenciarComponentes.html" onclick="Mudarestado('msgCadastro')"  type="submit" class="btn btn-primary ">Cadastro 2</button>
+             onclick="return valirdarUsuario()
              -->
           </div>
         </form>  
   	 </div>
+     <!--   =============================== Modal ADD Cadastro =========================================   -->
+         <div class="modal fade" id="ID_Modal_Cadastro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           <div class="modal-dialog" role="document">
+             <div class="modal-content">
+               <div class="modal-header">
+                 <h5 class="modal-title" id="ID_laberExcluir_Item">Excluir Item</h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+               </div>
+               <div class="modal-body">
+                 <form>
+                   <div class="form-group">
+                     <label for="recipient-name" class="col-form-label">Tem certeza que deseja Excluir o Item?</label>
+                   </div>
+                 </form>
 
-   <div class="container-fluid  d-flex align-items-start flex-column bd-highlight mb-3 mt-5">
-     <a href="TelaLogin.html" class="btn btn-primary mr-2">Voltar</a>
-   </div>  
+               </div>
+               <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                 <button type="button" class="btn btn-danger">Sim</button>
+               </div>
+             </div>
+           </div>
+         </div>
 
   	  <!-- <button type="button" class="btn btn-primary">Primary</button> -->
     <!-- Optional JavaScript -->

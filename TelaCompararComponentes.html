@@ -8,7 +8,15 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/compiler/bootstrap.css">
     <link rel="stylesheet" href="bootstrap/compiler/style.css">
+    <script language="JavaScript">
+      function Mudarestado(el) {
+        var display = document.getElementById(el).style.display;
+        if(display == "none")
+            document.getElementById(el).style.display = 'block';
+          //carregar a página e só depois exibir o conteudo
+    }
 
+    </script>
 
     <title>Eletronics Component Catalog</title>
   </head>
@@ -87,14 +95,16 @@
       </div>
     </div>
     <div class="col-md-2 ml-1 mt-5">
-      <a href="TelaCompararComponentes.html"class="btn btn-outline-primary mt-5 ml-2  tamanhoBTNS">  
+      <button type="button" onclick="Mudarestado('minhaDiv')"class="btn btn-outline-primary mt-5 ml-2  tamanhoBTNS">  
         Comparar
-      </a>
+      </button>
     </div>
  
   </div>
 </div>
+   <!--   =========================Início da listagem da comparação =======================================   -->
 
+<div id="minhaDiv" style="display: none">
 <table class="table table-striped">
 <h4 class="mt-5 mb-4 ml-3 border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-2" align="start">Informações Gerais</h4>
   <thead>
@@ -376,8 +386,8 @@
         </div>
       </div>
     </div>
+  </div>
 </div>
-
 
       <!-- <button type="button" class="btn btn-primary">Primary</button> -->
     <!-- Optional JavaScript -->

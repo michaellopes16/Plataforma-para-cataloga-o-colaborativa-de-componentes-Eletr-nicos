@@ -7,20 +7,30 @@ session_start();
 if(isset($_POST["ItemPesquisa"])){
 
   $idItem = $_POST["ItemPesquisa"];
-  echo "Item pesquisa no Tela Exibir: ".$idItem;
+  $_SESSION["itemAtual"] = $idItem; 
+  #echo "Item pesquisa no Tela Exibir: ".$idItem."</br>";
 } 
 
 
-$idItem = $_SESSION["itemAtual"];
+if( isset($_SESSION["itemAtual"]))
+{
+  $idItem = $_SESSION["itemAtual"];
+}
 
-echo "ID Item inserido: ".$idItem;
+#echo "ID Item inserido: ".$idItem;
 
 $fachada = new Fachada;
 #$micro = new MicrocontroladorVO;
 
 $arrayResult  = $fachada->exibirMicrocontrolador($idItem);
-echo "Nome Item result: ".$arrayResult['nomeItem'];
-$_SESSION["itemAtual"]
+
+//if(!isset($arrayResult['nomeItem']))
+//{
+ // $arrayResult  = $fachada->exibirMicrocontrolador($idItem);
+//}
+#echo "Nome Item result: ".$arrayResult['nomeItem'];
+$_SESSION["itemAtual"] = $idItem;
+#header("Refresh: 5");
 
 ?>
 <!doctype html>
@@ -286,12 +296,15 @@ $_SESSION["itemAtual"]
  <!--   =============================   Botão Editar  =========================================   -->       
 
        <!--  Sò deve aparecer se o usuário estiver logado    -->        
-      <a href="TelaEditarMicrocontrolador.php" class="btn btn-primary mt-5 mb-3 ml-2" align="center">
-       <svg id="i-edit" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-           <path  d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"  />
-       </svg> 
-      Editar Conteúdo
-      </a>
+      <form  class="" method="POST" action="TelaEditarMicrocontrolador.php" data-toggle="validator" role="form">
+        <input type="hidden" name="ItemPesquisa" id="cod_processo" value="<?php echo $_SESSION["itemAtual"] ?>"/> 
+            <button  type="submit" class="btn btn-primary mt-3  tamanhoBTNS" align="center" ">  
+               <svg id="i-edit" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+               <path  d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"  />
+               </svg>   
+             Editar Conteúdo
+            </button>
+        </form> 
    <!--   =============================Projetos Relacionados=======================================   -->
  <h4 class="mt-5 mb-4 ml-3 border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-2" align="start">Projetos Relacionados</h4>
 

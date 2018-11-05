@@ -4,6 +4,7 @@ class MicrocontroladorVO
 {
 
 	#Informações gerais
+	public $ID_Item;
 	public $nome;
 	public $modelo;
 	public $temperaturaOperacao;

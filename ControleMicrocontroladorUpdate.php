@@ -29,7 +29,8 @@
 	}else { 
   		echo"Você não realizou o upload de forma satisfatória."; 
 	} 
-	
+
+	$idItem 			 = $_SESSION["itemAtual"];
 	$nome 			 	 = $_POST['nome'];
 	$modelo			 	 = $_POST['modelo'];
 	$temperatura_ope  	 = $_POST['temperatura_ope'];
@@ -73,6 +74,7 @@
 	$micro = new MicrocontroladorVO();
 
 	#Informações gerais
+	 $micro->ID_Item				= $idItem; 
 	 $micro->img_componente   		= $caminho_img_componente;
 	 $micro->img_legenda 	  		= $caminho_img_legenda;
 	 $micro->nome 			        = $nome;
@@ -112,14 +114,14 @@
 	
 	$fachada = new Fachada();
 
-	$result = $fachada->inserirMicrocontrolador($micro);
+	$result = $fachada->atualizarMicrocontrolador($micro);
 	#echo "Resultado: ".$result;
 	#echo $result."Tá retornando isso!";
 	if ($result == 1) {
-		$imprimir = "Item Já cadastrado!";
+		$imprimir = "Item não encontrado!";
 		$tipoAlert = "alert alert-warning alert-dismissible fade show";
 		$labelAlerta = 'Atenção! ';
-		$labelLink = 'Tente cadastrar um item novo';
+		$labelLink = 'Tente novamente!';
 	}else if ($result == 2) {
 
 		$imprimir = "Erro ao inserir item!";

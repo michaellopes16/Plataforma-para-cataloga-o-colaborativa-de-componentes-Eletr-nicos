@@ -25,6 +25,14 @@ class Fachada{
 	return $resultado->verificarExistenciaMicro($micro);
 	#$cadastro ->{'verificarUsuario'}();
 	}
+
+	function atualizarMicrocontrolador($micro){
+	
+	$resultado = new MicrocontroladorDAO();
+	return $resultado->verificarExistenciaMicroByID($micro);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
 	function exibirMicrocontrolador($idItem){
 	
 	$resultado = new MicrocontroladorDAO();

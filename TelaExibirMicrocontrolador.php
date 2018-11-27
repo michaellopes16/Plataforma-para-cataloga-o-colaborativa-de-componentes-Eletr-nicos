@@ -8,7 +8,7 @@ if(isset($_POST["ItemPesquisa"])){
 
   $idItem = $_POST["ItemPesquisa"];
   $_SESSION["itemAtual"] = $idItem; 
-  #echo "Item pesquisa no Tela Exibir: ".$idItem."</br>";
+ # echo "Item pesquisa no Tela Exibir: ".$idItem."</br>";
 } 
 
 
@@ -24,13 +24,8 @@ $fachada = new Fachada;
 
 $arrayResult  = $fachada->exibirMicrocontrolador($idItem);
 
-//if(!isset($arrayResult['nomeItem']))
-//{
- // $arrayResult  = $fachada->exibirMicrocontrolador($idItem);
-//}
-#echo "Nome Item result: ".$arrayResult['nomeItem'];
 $_SESSION["itemAtual"] = $idItem;
-#header("Refresh: 5");
+
 
 ?>
 <!doctype html>
@@ -110,11 +105,12 @@ $_SESSION["itemAtual"] = $idItem;
            Gerenciar
          </a>
           <?php } }?>
-         <a href="#" class="btn btn-primary  mr-2 ml-2 mr-auto p-2 bd-highlight">
+         <a href="TelaFavoritos.php" class="btn btn-primary  mr-2 ml-2 mr-auto p-2 bd-highlight">
           <svg  id="i-star" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
               <path d="M16 2 L20 12 30 12 22 19 25 30 16 23 7 30 10 19 2 12 12 12 Z" />
           </svg>  
-         Favoritos</a>
+         Favoritos
+       </a>
          <form class="form-inline">
            <input class="form-control ml-4 mr-2" type="search" placeholder="Buscar...">
            <a href="TelaFavoritos.php" class="btn btn-primary p-2 ml-2 bd-highlight">
@@ -136,9 +132,8 @@ $_SESSION["itemAtual"] = $idItem;
  <table class="table table-striped">
  <h4 class="mt-5 mb-4 ml-3 border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-2" align="start">Informações Gerais</h4>
    <tbody>
-    <tr>
-      <th scope="row">Inserido pelo Usuário:</th>
-      <td><?php echo $arrayResult['nomeUsuario']; ?> </td>
+      <th scope="row">Atualidado por:</th>
+      <td><?php echo $arrayResult['primeiroNome']." ".$arrayResult['sobreNome']." (".$arrayResult['nomeUsuario'].")"; ?> <b>  em:  </b> <?php echo " ".$arrayResult['dataCadastro']; ?> </td>
     </tr>
      <tr class="table-primary">
        <th scope="row">Nome</th>
@@ -294,7 +289,9 @@ $_SESSION["itemAtual"] = $idItem;
  </table>
 
  <!--   =============================   Botão Editar  =========================================   -->       
-
+      <?php 
+       if(isset($_SESSION['logado']) && !empty($_SESSION['logado'])){
+         if($_SESSION["logado"] == 1){ ?>
        <!--  Sò deve aparecer se o usuário estiver logado    -->        
       <form  class="" method="POST" action="TelaEditarMicrocontrolador.php" data-toggle="validator" role="form">
         <input type="hidden" name="ItemPesquisa" id="cod_processo" value="<?php echo $_SESSION["itemAtual"] ?>"/> 
@@ -305,6 +302,7 @@ $_SESSION["itemAtual"] = $idItem;
              Editar Conteúdo
             </button>
         </form> 
+         <?php } }?>
    <!--   =============================Projetos Relacionados=======================================   -->
  <h4 class="mt-5 mb-4 ml-3 border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-2" align="start">Projetos Relacionados</h4>
 

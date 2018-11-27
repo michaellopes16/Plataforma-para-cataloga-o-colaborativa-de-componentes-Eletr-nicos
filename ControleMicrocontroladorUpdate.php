@@ -7,25 +7,33 @@
  	#Informações gerais
 
 	if(isset($_FILES['imgComponente'])) { 
-
-	$extensaoI1 =  strtolower(substr($_FILES['imgComponente']['name'],-4));// pega a extensão do arquivo
-	$novo_nome = md5(time()). $extensaoI1 ;
-	$diretorioIMG = "upload/";
-	$caminho_img_componente = $diretorioIMG."componente_".$novo_nome;
-
-	move_uploaded_file($_FILES['imgComponente']['tmp_name'], $caminho_img_componente); 
+		#echo "Caminho Componente: ".empty($_FILES['imgComponente']['name']);
+		if(!empty($_FILES['imgComponente']['name'])){
+			$extensaoI1 =  strtolower(substr($_FILES['imgComponente']['name'],-4));// pega a extensão do arquivo
+			$novo_nome = md5(time()). $extensaoI1 ;
+			$diretorioIMG = "upload/";
+			$caminho_img_componente = $diretorioIMG."componente_".$novo_nome;
+			move_uploaded_file($_FILES['imgComponente']['tmp_name'], $caminho_img_componente); 
+		}else
+		{
+			$caminho_img_componente = $_FILES['imgComponente']['name'];
+		}
 	}else { 
   		echo"Você não realizou o upload de forma satisfatória."; 
 	} 
 
 	if(isset($_FILES['imgLegenda'])) { 
-
-	$extensaoI2 =  strtolower(substr($_FILES['imgLegenda']['name'],-4));// pega a extensão do arquivo
-	$novo_nome2 = md5(time()). $extensaoI2;
-	$diretorioIMG = "upload/";
-	$caminho_img_legenda = $diretorioIMG."legenda_".$novo_nome2;
-	
-	move_uploaded_file($_FILES['imgLegenda']['tmp_name'],$caminho_img_legenda); 
+		#echo "Caminho Componente: ".empty($_FILES['imgLegenda']['name']);
+		if(!empty($_FILES['imgLegenda']['name'])){
+			$extensaoI2 =  strtolower(substr($_FILES['imgLegenda']['name'],-4));// pega a extensão do arquivo
+			$novo_nome2 = md5(time()). $extensaoI2;
+			$diretorioIMG = "upload/";
+			$caminho_img_legenda = $diretorioIMG."legenda_".$novo_nome2;
+			move_uploaded_file($_FILES['imgLegenda']['tmp_name'],$caminho_img_legenda); 
+		}else
+		{
+			$caminho_img_legenda = $_FILES['imgLegenda']['name'];
+		}
 	}else { 
   		echo"Você não realizou o upload de forma satisfatória."; 
 	} 
@@ -114,6 +122,7 @@
 	
 	$fachada = new Fachada();
 
+	#echo "</br>Caminho antes da atualização: ". $micro->img_legenda;
 	$result = $fachada->atualizarMicrocontrolador($micro);
 	#echo "Resultado: ".$result;
 	#echo $result."Tá retornando isso!";
@@ -124,13 +133,13 @@
 		$labelLink = 'Tente novamente!';
 	}else if ($result == 2) {
 
-		$imprimir = "Erro ao inserir item!";
+		$imprimir = "Erro ao atulizar item!";
 		$tipoAlert = "alert alert-danger";
 		$labelAlerta = 'Erro! ';
 		$labelLink = 'Tente novamente';
 	}else
 	{
-		$imprimir = " Componente cadastrado com sucesso!";
+		$imprimir = " Componente atualizado com sucesso!";
 		$tipoAlert = "alert alert-success";
 		$labelAlerta = 'Sucesso! ';
 		$labelLink = 'Visualizar!';

@@ -5,11 +5,37 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- onclick="Mudarestado('minhaDiv') -->
 
-<!-- Bootstrap CSS -->
+<!-- Bootstrap CSS   onclick="Mudarestado('minhaDiv') -->
     <link rel="stylesheet" href="bootstrap/compiler/bootstrap.css">
     <link rel="stylesheet" href="bootstrap/compiler/style.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+     <script type="text/javascript">
+        $("#ID_Campo_PM").mask("#.##0,00", {reverse: true});
+     </script>
 
+    <script language="JavaScript">
+
+      function Mudarestado(el) {
+        var valor = document.getElementById(el).value;
+        var dispDiv1 = document.getElementById("ID_div_principal").style.display;
+        if(valor == "Recarregável"){
+            document.getElementById("n_recaregavel").style.display = "none";
+            document.getElementById("recaregavel").style.display = "block";
+            document.getElementById("ID_div_principal").style.height = '1420px';
+
+        }else
+        {
+            document.getElementById("recaregavel").style.display = "none";
+            document.getElementById("n_recaregavel").style.display = "block";
+            document.getElementById("ID_div_principal").style.height = '1400px';
+        }
+          //carregar a página e só depois exibir o conteudo
+    }
+    </script>
 
     <title>Eletronics Component Catalog</title>
   </head>
@@ -83,148 +109,142 @@
      </div>
    -->
 
-     <div class="container-fluid  d-flex flex-column bd-highlight  quadradoInserirItem  col-md-10" data-spy="scroll"  data-target="#list-example" data-offset="0" class="scrollspy-example">
+     <div class="container-fluid  d-flex flex-column bd-highlight  quadradoInserirItem  col-md-10 scrollspy-example" id="ID_div_principal" data-spy="scroll"  data-target="#list-example" data-offset="0" style="height: 1400px;">
       
       <div class="container-fluid  align-items-center ">
-       <form  class="tamnhoForm ">
+       <form  class="tamnhoForm" method="POST" action="ControleBateria.php" role="form" enctype="multipart/form-data" data-toggle="validator">
 
- <!--   =============================   Informações Gerais   ============================================   -->
-         <h4 class="mt-4 mb-4  border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-2" align="start">Informações Gerais</h4>
+<!--   =============================   Informações Gerais   =================================   -->
+     <h4 class="mt-4 mb-4  border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-2" align="start">Informações Gerais</h4>
         
-        <!--   ====================== Carregamento das imagens =========================================   -->
+<!--   ====================== Carregamento das imagens ======================================   -->
        
          <div class="form-row" align="start">
 
            <div class="form-group col-md-5" align="start">
              
              <img src="img/ItemTeste.png" id="ID_IMG_Componente"  class="img mt- border border-primary rounded" width="130" height="80">
-             <input type="file" class="form-control-file" id="ID_Enviar_Foto">
+             <input type="file" name="caminho_img_componente" class="form-control-file" id="ID_Enviar_Foto" required>
              <label class="custom-file-label" for="ID_Enviar_Foto">Imagem do Componente</label>
            </div>  
-           <div class="form-group col-md-2 mt-5" align="end">
-              <!-- Adicionar imagem no frames e salva-las-->
-             <a href="#" class="btn btn-outline-primary mr-2">Carregar Imagens</a>
-           </div>
-
          </div>
-          <!--   =============================== Linha 1 =========================================   -->
+<!--   =============================== Linha 1 =========================================   -->
+
          <div class="form-row" align="center">
            <div class="form-group col-md-4" align="start">
              <label for="ID_Campo_Nome" >Nome</label>
-             <input type="text" class="form-control" id="ID_Campo_Nome" placeholder="">
+             <input type="text" name="nome" class="form-control"  id="ID_Campo_Nome" placeholder="">
            </div>
-           <div class="form-group col-md-4" align="start">
-             <label for="ID_Campo_Tipo">Tipo</label>
-             <input type="text" class="form-control" id="ID_Campo_Tipo" placeholder="">
+          <div class="form-group col-md-4" align="start">
+               <label for="ID_Tipo_Carga">Tipo de Carga</label>
+               <select id="ID_Comu_SF" name="tipo_carga" class="form-control" onchange="Mudarestado('ID_Comu_SF')">
+                 <option selected>Não Recaregável</option>
+                 <option>Recarregável</option> 
+               </select>
            </div>
            <div class="form-group col-md-4" align="start">
              <label for="ID_Campor_TO">Temperatura de operação</label>
-             <input type="text" class="form-control" id="ID_Campor_TO" placeholder="Temp. Mínima e Máxima em Cº">
+             <input type="text" name="temperatura_ope" class="form-control" id="ID_Campor_TO"  placeholder="Temp. Mínima e Máxima em Cº">
            </div>
          </div>
-          <!--   =============================== Linha 2 =========================================   -->
+<!--   =============================== Linha 2 =========================================   -->
       
            <div class="form-row">
              <div class="form-group col-md-4" align="start">
                <label for="ID_Dimensoes">Dimensões</label>
-               <input type="text" class="form-control" id="ID_Dimensoes" placeholder="00cm X 00cm X 00 cm">
+               <input type="text" name="dimensao" class="form-control" id="ID_Dimensoes" placeholder="00cm X 00cm X 00 cm">
              </div>
             <div class="form-group col-md-4" align="start">
               <label for="ID_Campo_Peso" >Peso</label>
-              <input type="link" class="form-control" id="ID_Campo_Peso" placeholder="20 gm">
+              <input type="link" name="peso" class="form-control" id="ID_Campo_Peso" placeholder="20 gm">
             </div>
               <div class="form-group col-md-4" align="start">
                 <label for="ID_Tamanho">Tamanho</label>
-                <input type="text" class="form-control" id="ID_Tamanho" placeholder="AA ou AAA ou...">
+                <input type="text" name="tamanho" class="form-control" id="ID_Tamanho" placeholder="AA ou AAA ou...">
               </div>
             </div>
 
-         <!--   =============================== Linha 3 =========================================   -->
+ <!--   =============================== Linha 3 =========================================   -->
          <div class="form-row">
            <div class="form-group col-md-4" align="start">
              <label for="ID_Data_Sheet" >Link DataSheet</label>
-             <input type="link" class="form-control" id="ID_Data_Sheet" placeholder="https:// ...">
+             <input type="link" name="link_DS" class="form-control" id="ID_Data_Sheet" placeholder="https:// ...">
            </div>
          
            <div class="form-group col-md-4" align="start">
-             <label for="inputPassword4">Preço Médio</label>
-             <input type="number" class="form-control" id="ID_Campor_PM" placeholder="R$ 0,00">
+             <label for="inputPassword4">Preço Médio R$</label>
+             <input type="text" name="preco_medio" class="form-control" id="ID_Campo_PM" placeholder="0,00" required>
            </div>
 
            <div class="form-group col-md-4" align="start">
              <label for="ID_Campo_Palavra-Chave">Palavras-Chave</label>
-             <input type="text" class="form-control" id="ID_Campo_Palavra-Chave" placeholder="Palavra1, Palavra2, ..">
+             <input type="text" name="palavra_chave" class="form-control" id="ID_Campo_Palavra-Chave" placeholder="Palavra1, Palavra2, ..">
            </div>
+        </div>
+        <div class="form-row">           
+          <div class="form-group col-md-4" align="start">
+            <label for="ID_Tensao_Nominal">Tensão Nominal</label>
+            <input type="link" name="tensao_nom" class="form-control" id="ID_Tensao_Nominal" placeholder="Em Volts">
+          </div>
          </div>
 
- <!--   =============================   Informações Elétricas   ============================================   -->       
+ <!--   =============================   Informações Elétricas   ===========================   -->       
       <h4 class="mt-4 mb-4  border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-3" align="start">Informações Elétricas</h4>
 <!--   =============================== Linha 1 =========================================   -->
-       <div class="form-row">
-        <div class="form-group col-md-4" align="start">
-          <label for="ID_Tensao_Nominal">Tensão Nominal</label>
-          <input type="link" class="form-control" id="ID_Tensao_Nominal" placeholder="Em Volts">
-        </div>
-        <div class="form-group col-md-4" align="start">
-             <label for="ID_Tipo_Carga">Tipo de Carga</label>
-             <select id="ID_Comu_SF" class="form-control">
-               <option selected>Escolha</option>
-               <option>Recaregável</option> 
-               <option>Não Recaregável</option> 
-             </select>
-         </div>
-         <div class="form-group col-md-4" align="start">
-           <label for="ID_M_Consumo">Modo de Consumo</label>
-           <input type="text" class="form-control" id="ID_M_Consumo">
-         </div>
-       </div>
-<!--   =============================== Linha 2 =========================================   -->       
-          <!--  Se recarregável  -->  
-           <div class="form-row">
-            <div class="form-group col-md-4" align="start">
-               <label for="ID_Campo_Manuten">Manutenção</label>
-               <input type="text" class="form-control" id="ID_Campo_Manuten" placeholder="">
-             </div>
-            <div class="form-group col-md-4" align="start">
-              <label for="ID_Campo_Densidade" >Densidade</label>
-              <input type="number" class="form-control" id="ID_Campo_Densidade" placeholder="">
-            </div>
-            <div class="form-group col-md-4" align="start">
-                <label for="ID_Campo_Resistensia_interna">Resistência Interna</label>
-                <input type="number" class="form-control" id="ID_Campo_Resistensia_interna" placeholder="">
-            </div>
+       
+
+      <div id="recaregavel" style="display: none;">          <!--  Se recarregável  -->  
+
+        <div class="form-row">
+          <div class="form-group col-md-4" align="start">
+             <label for="ID_Campo_Manuten">Manutenção</label>
+             <input type="text" name="manutencao" class="form-control" id="ID_Campo_Manuten" placeholder="">
+           </div>
+          <div class="form-group col-md-4" align="start">
+            <label for="ID_Campo_Densidade" >Densidade</label>
+            <input type="number" name="densidade" class="form-control" id="ID_Campo_Densidade" placeholder="">
           </div>
+          <div class="form-group col-md-4" align="start">
+              <label for="ID_Campo_Resistensia_interna">Resistência Interna</label>
+              <input type="number" name="resistencia_int" class="form-control" id="ID_Campo_Resistensia_interna" placeholder="">
+          </div>
+        </div>
+<!--   =============================== Linha 2 =========================================   -->       
+                   
            <div class="form-row">
+
             <div class="form-group col-md-4" align="start">
                <label for="ID_Campo_Ciclo_De_Vida">Ciclo de Vida</label>
-               <input type="text" class="form-control" id="ID_Campo_Ciclo_De_Vida" placeholder="">
+               <input type="text" name="ciclo_de_vida" class="form-control" id="ID_Campo_Ciclo_De_Vida" placeholder="">
              </div>
             <div class="form-group col-md-4" align="start">
               <label for="ID_Campo_Tempo_CR" >Tempo para Carga Rápida</label>
-              <input type="number" class="form-control" id="ID_Campo_Tempo_CR" placeholder="">
+              <input type="number" name="tempo_carga_rapida" class="form-control" id="ID_Campo_Tempo_CR" placeholder="">
             </div>
             <div class="form-group col-md-4" align="start">
                 <label for="ID_Campo_Tole_sobre">Tolerância para sobrecarga</label>
-                <input type="number" class="form-control" id="ID_Campo_Tole_sobre" placeholder="">
+                <input type="number" name="tolerancia_sobrecarga" class="form-control" id="ID_Campo_Tole_sobre" placeholder="">
             </div>
           </div>
            <div class="form-row">
             <div class="form-group col-md-4" align="start">
                <label for="ID_Campo_Auto-DM">Auto-Descarga Mensal</label>
-               <input type="text" class="form-control" id="ID_Campo_Auto-DM" placeholder="">
+               <input type="text" name="auto_descarga_mensal" class="form-control" id="ID_Campo_Auto-DM" placeholder="">
              </div>
             <div class="form-group col-md-4" align="start">
               <label for="ID_Campo_Corrente_C" >Corrente de Carga</label>
-              <input type="number" class="form-control" id="ID_Campo_Corrente_C" placeholder="">
+              <input type="number" name="corrente_carga" class="form-control" id="ID_Campo_Corrente_C" placeholder="">
             </div>
           </div>
+        </div>
 
           <!--  Se não recarregável  --> 
+        <div id="n_recaregavel"> <!--  Se não recarregável  --> 
 
            <div class="form-row">
             <div class="form-group col-md-4" align="start">
                <label for="ID_Campo_Quimica">Química Utilizada</label>
-               <input type="text" class="form-control" id="ID_Campo_Quimica" placeholder="">
+               <input type="text" name="quimica" class="form-control" id="ID_Campo_Quimica" placeholder="">
              </div>
            </div>
            
@@ -233,35 +253,35 @@
            <div class="form-row">
             <div class="form-group col-md-4" align="start">
               <label for="ID_Campo_Tempo_Medio" >Tempo médio</label>
-              <input type="number" class="form-control" id="ID_Campo_Tempo_Medio" placeholder="">
+              <input type="number" name="tempo_medio" class="form-control" id="ID_Campo_Tempo_Medio" placeholder="">
             </div>
             <div class="form-group col-md-4" align="start">
               <label for="ID_Campo_Resistor_D" >Resistor de Descarga</label>
-              <input type="number" class="form-control" id="ID_Campo_Resistor_D" placeholder="">
+              <input type="number" name="resistor_descarga" class="form-control" id="ID_Campo_Resistor_D" placeholder="">
             </div>
             <div class="form-group col-md-4" align="start">
               <label for="ID_Campo_Volt_Mini" >Voltagem Mínima</label>
-              <input type="number" class="form-control" id="ID_Campo_Volt_Mini" placeholder="">
+              <input type="number"  name="voltagem_minima" class="form-control" id="ID_Campo_Volt_Mini" placeholder="">
             </div>
          </div>
+      </div>
 
-
-<!--   =============================   Componentes Adicionais   =========================================   -->              
+<!--   =============================   Componentes Adicionais ==============================   -->              
        <h4 class="mt-4 mb-4  border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-5" align="start">Informações Adicionais</h4>
 
          <div class="form-group" align="start">
              <label for="exampleFormControlTextarea1">Informações Adicionais</label>
-             <textarea class="form-control" id="ID_Campo_Ind_Add" rows="10" style="resize: none" placeholder="Digite aqui alguma informação sobre o componete que não está em um dos campos acima..."></textarea>
+             <textarea class="form-control" name="info_add" id="ID_Campo_Ind_Add" rows="10" style="resize: none" placeholder="Digite aqui alguma informação sobre o componete que não está em um dos campos acima..."></textarea>
 
       </div>
 
 <!--   =============================   Botão Salvar  =========================================   -->                
-     <a href="#" class="btn btn-primary mt-5 mb-3 ml-4" align="center">
+     <button type="submit" class="btn btn-primary mt-5 mb-3 ml-4" align="center">
        <svg id="i-archive" viewBox="0 0 30 30" width="25" height="20"fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
            <path d="M4 10 L4 28 28 28 28 10 M2 4 L2 10 30 10 30 4 Z M12 15 L20 15"  />
        </svg>
      Salvar
-     </a>
+     </button>
 <!--   =============================   Fim do formulário =========================================   -->
     </form>
   </div>

@@ -9,7 +9,11 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/compiler/bootstrap.css">
     <link rel="stylesheet" href="bootstrap/compiler/style.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+     <script type="text/javascript">
+        $("#ID_Campor_PM").mask("#.##0,00", {reverse: true});
+     </script>
 
     <title>Eletronics Component Catalog</title>
   </head>
@@ -149,8 +153,8 @@
              <input type="link" name="palavra_chave" class="form-control" id="ID_Palavra_chave" placeholder="Palavra1, Palavra2 ...">
            </div>
            <div class="form-group col-md-4" align="start">
-             <label for="inputPassword4">Preço Médio</label>
-             <input type="number" name="preco_medio" class="form-control" id="ID_Campor_PM" placeholder="R$ 0,00">
+             <label for="inputPassword4">Preço Médio R$</label>
+             <input type="text" name="preco_medio" class="form-control" id="ID_Campor_PM" placeholder="0,00" required>
            </div>
          </div>
 

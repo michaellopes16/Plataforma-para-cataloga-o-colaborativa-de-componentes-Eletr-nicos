@@ -26,6 +26,8 @@ $arrayResult  = $fachada->exibirMicrocontrolador($idItem);
 $_SESSION["itemAtual"] = $idItem;
 
 ?>
+
+
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -36,7 +38,13 @@ $_SESSION["itemAtual"] = $idItem;
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/compiler/bootstrap.css">
     <link rel="stylesheet" href="bootstrap/compiler/style.css">
-
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+ <script type="text/javascript">
+    $("#ID_Campor_PM").mask("#.##0,00", {reverse: true});
+ </script>
+    
 
     <title>Eletronics Component Catalog</title>
   </head>
@@ -132,13 +140,13 @@ $_SESSION["itemAtual"] = $idItem;
            <div class="form-group col-md-5" align="start">
              <img src="<?php echo $arrayResult['img_componente']; ?>" id="ID_IMG_Componente"  class="img mt- border border-primary rounded" width="130" height="80">
               <input type="hidden" name="MAX_FILE_SIZE" value="99999999"/>
-             <input type="file" name="imgComponente"  value="<?php echo $arrayResult['img_componente']; ?>" class="form-control-file" id="ID_Enviar_Foto">
+             <input type="file" name="imgComponente"   class="form-control-file" id="ID_Enviar_Foto">
              <label class="custom-file-label" for="ID_Enviar_Foto">Imagem do Componente</label>
            </div>  
            <div class="form-group col-md-5" align="start">
              <img src="<?php echo $arrayResult['img_legenda']; ?>" id="ID_IMG_Legenda"  class="img mt- border border-primary  rounded" width="130" height="80">
              <input type="hidden" name="MAX_FILE_SIZE" value="99999999"/>
-             <input type="file" name="imgLegenda"  value="<?php echo $arrayResult['img_legenda']; ?>"  class="form-control-file" id="ID_Enviar_Pinagem">
+             <input type="file" name="imgLegenda"   class="form-control-file" id="ID_Enviar_Pinagem">
              <label class="custom-file-label" for="ID_Enviar_Pinagem">Legenda de Sinais (pinagem)</label>
            </div>  
          </div>
@@ -172,7 +180,7 @@ $_SESSION["itemAtual"] = $idItem;
            </div>
            <div class="form-group col-md-4" align="start">
              <label for="inputPassword4">Preço Médio</label>
-             <input type="number" name="preco_medio" value="<?php echo $arrayResult['precoMedio']; ?> " class="form-control" id="ID_Campor_PM" placeholder="R$ 0,00" required> 
+             <input type="text" data-mask="(00) 00000-0000" name="preco_medio" value="<?php echo $arrayResult['precoMedio']; ?> " class="dinheiro form-control" id="ID_Campor_PM" placeholder="0,00" required> 
            </div>
          </div>
 

@@ -12,9 +12,8 @@ $fachada = new Fachada;
 #$micro = new MicrocontroladorVO;
 
 $arrayResult  = $fachada->exibirItem($itemAtual);
-#echo "Nome Item result: ".$arrayResult[0];
 
-
+$linkCategoria = '#';
 
 
 
@@ -122,11 +121,10 @@ $arrayResult  = $fachada->exibirItem($itemAtual);
           <div class="divScroll" data-spy="scroll" data-offse="0">
               <!-- Inserir componentes dessa lista em um for do tamanho do retorno -->
              
+         <?php  
              
-              <?php  
-             
-              #echo "Itens retornados: ".count($arrayResult);
-              while ($row =  mysqli_fetch_array($arrayResult,MYSQLI_ASSOC)) { #echo "Palavra chave:".$row['palavraChave'];?>
+           #echo "Itens retornados: ".count($arrayResult);
+         while ($row =  mysqli_fetch_array($arrayResult,MYSQLI_ASSOC)) {# echo "Palavra chave:".$row['palavraChave'];?>
             
               <li class="list-group-item list-group-item-primary d-flex bd-highlight mb-3 mr-2">
                  <!-- Adicionar comportamento de salvar na lista de favoritos -->
@@ -138,8 +136,28 @@ $arrayResult  = $fachada->exibirItem($itemAtual);
                 </a>
                 <img src="<?php echo  $row['img_componente']; ?>" 
                 class="img mt-1" align="center" width="90" height="65">
-          
-          <form class="form-inline  mr-auto" method="POST" action="TelaExibirMicrocontrolador.php" data-toggle="validator" role="form">
+          <?php switch ($row['categoria']) {
+            case 'microcontrolador':
+               $linkCategoria = "TelaExibirMicrocontrolador.php";
+              break;
+            case 'bateria':
+               $linkCategoria = "TelaExibirBateria.php";
+              break;
+            case 'sensor':
+                $linkCategoria = "TelaExibirSensor.php";
+                break;
+            case 'atuador':
+                $linkCategoria = "TelaExibirAtuador.php";
+                break;
+            case 'shield':
+                $linkCategoria = "TelaExibirShield.php";
+                break;
+            case 'projeto':
+                $linkCategoria = "TelaExibirProjeto.php";
+                break;
+          } ?>
+
+          <form class="form-inline  mr-auto" method="POST" action="<?php echo $linkCategoria;?>" data-toggle="validator" role="form">
             <input type="hidden" name="ItemPesquisa" id="cod_processo" value="<?php echo $row['ID_Item']; ?>"/> 
                <button  type="submit" class="btn btn-outline-primary mr-auto ml-3 mb-1 mt-2 border-0 " align="center" ">  
                   <h6 style="text-align:center;">

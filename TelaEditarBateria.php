@@ -309,7 +309,7 @@ if($arrayResult['tipo'] != "Recarregável")
        <svg id="i-archive" viewBox="0 0 30 30" width="25" height="20"fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
            <path d="M4 10 L4 28 28 28 28 10 M2 4 L2 10 30 10 30 4 Z M12 15 L20 15"  />
        </svg>
-     Salvar
+     Atualizar
      </button>
 <!--   ======================  Fim do formulário =========================================   -->
     </form>
@@ -335,7 +335,7 @@ if($arrayResult['tipo'] != "Recarregável")
               </div>
             </form>
           </div>
-<!--   =============================   Botão Salvar =====================================   -->                
+<!--   =============================   Botão Atualizar MOdal =====================================   -->                
      <button type="submit" class="btn btn-primary mt-5 mb-3 ml-4" align="center">
        <svg id="i-archive" viewBox="0 0 30 30" width="25" height="20"fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
            <path d="M4 10 L4 28 28 28 28 10 M2 4 L2 10 30 10 30 4 Z M12 15 L20 15"  />

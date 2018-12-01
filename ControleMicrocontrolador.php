@@ -115,12 +115,12 @@
 	$result = $fachada->inserirMicrocontrolador($micro);
 	#echo "Resultado: ".$result;
 	#echo $result."Tá retornando isso!";
-	if ($result == 1) {
+	if ($result == -1) {
 		$imprimir = "Item Já cadastrado!";
 		$tipoAlert = "alert alert-warning alert-dismissible fade show";
 		$labelAlerta = 'Atenção! ';
 		$labelLink = 'Tente cadastrar um item novo';
-	}else if ($result == 2) {
+	}else if ($result == -2) {
 
 		$imprimir = "Erro ao inserir item!";
 		$tipoAlert = "alert alert-danger";

@@ -176,7 +176,7 @@ if(isset($_SESSION["excluiu"]) || !empty($_SESSION["excluiu"]))
                    <button  type="submit" class="btn btn-outline-primary  mb-1 mt-2 border-0 ">  
                       <h6 style="text-align:center;">
                         <p>
-                        <?php echo  "<b>Nome Item:</b> ".$row['nomeItem']." <b> Preço Médio: </b> R$ ". $row['precoMedio']."</br> <b> Palavras Chave:</b> ". $row['palavraChave'];?> 
+                        <?php echo  "<b>Nome Item:</b> ".$row['nomeItem']."</br><b> Preço Médio: </b> R$ ". $row['precoMedio']."</br> <b> Palavras Chave:</b> ". $row['palavraChave'];?> 
                        </p>
                      </h6> 
                     </button>

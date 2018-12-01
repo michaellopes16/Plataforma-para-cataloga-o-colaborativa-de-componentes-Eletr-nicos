@@ -4,6 +4,13 @@ include_once("conexao/Fachada.class.php");
 include_once("conexao/MicrocontroladorVO.class.php");
 
 session_start();
+
+if(isset($_POST["ItemAnterior"])){
+
+  $_SESSION["ItemAnterior"] =  $_POST["ItemAnterior"];
+    echo "Item anterior:".$_SESSION["ItemAnterior"];
+}
+
 if(isset($_POST["ItemPesquisa"])){
 
   $idItem = $_POST["ItemPesquisa"];
@@ -132,8 +139,10 @@ $_SESSION["itemAtual"] = $idItem;
  <table class="table table-striped">
  <h4 class="mt-5 mb-4 ml-3 border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-2" align="start">Informações Gerais</h4>
    <tbody>
+    <tr>
       <th scope="row">Atualidado por:</th>
-      <td><?php echo $arrayResult['primeiroNome']." ".$arrayResult['sobreNome']." (".$arrayResult['nomeUsuario'].")"; ?> <b>  em:  </b> <?php echo " ".$arrayResult['dataCadastro']; ?> </td>
+      <td><?php echo $arrayResult['primeiroNome']." ".$arrayResult['sobreNome']." (".$arrayResult['nomeUsuario'].")"; ?> <b>  em:  </b> <?php echo " ".$arrayResult['dataCadastro']; ?>
+      </td>
     </tr>
      <tr class="table-primary">
        <th scope="row">Nome</th>
@@ -167,7 +176,7 @@ $_SESSION["itemAtual"] = $idItem;
      <tr>
        <th scope="row">DataSheet</th>
        <td>
-          <a href="<?php $arrayResult['linkDataSheet']; ?>" class="btn button-link">
+          <a href="<?php echo $arrayResult['linkDataSheet']; ?>" class="btn button-link">
             <?php echo $arrayResult['linkDataSheet']; ?>
           </a>
        </td>
@@ -280,9 +289,7 @@ $_SESSION["itemAtual"] = $idItem;
    <tbody>
      <tr class="table-primary">
        <td>
-         <p>
-          <?php echo $arrayResult['infoAdicionais']; ?>
-         </p>
+           <textarea class="form-control" align="start" readonly="readonly" name="info_add" id="ID_Campo_Ind_Add" rows="10" cols="200" style="resize: none; width:100%;background-color:#0000; border-color:#0000; "  > <?php echo $arrayResult['infoAdicionais']; ?></textarea>
        </td>
      </tr>
    </tbody>

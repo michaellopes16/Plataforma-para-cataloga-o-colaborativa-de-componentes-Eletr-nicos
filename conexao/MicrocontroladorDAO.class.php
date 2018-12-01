@@ -152,7 +152,7 @@ class MicrocontroladorDAO{
 	   if(!$msg_resultadoItem || !$resultadoCadastroItem || !$resultadoMicro || !$item_Eum_micro
 	   	|| !$modelo_micro || !$info_adicionais || !$info_tecnicas || !$info_eletricas || !$info_gerais || !$info_comuni)
 	   {
-		return 2;
+		return -2;
 	   }else
 	   {
 		return  $idItemReturn;
@@ -420,7 +420,7 @@ function excluirMicro($microID)
 	   	$row = $busca_resultado->fetch_row();
 	   #	echo  "retorno da verificação: ".$row[0];
 	   	if ($row[0] > 0) {
-	   	    return 1;
+	   	    return -1;
 	   	} else {
 	 	    return $this->inserirMicro($micro, $conn);
 	   	}
@@ -508,28 +508,19 @@ function excluirMicro($microID)
 
 	  	function getItens($itemAtual){
 
-		
-			$resultado = "SELECT I.*, EU.*,M.*
-			FROM item                   				 AS I  
-			INNER JOIN item_eum_micro         			 AS EU ON EU.ID_Item_FK = I.ID_Item
-			INNER JOIN microcontrolador       			 AS M  ON M.ID_Microcontrolador = EU.ID_Micro_FK
-			WHERE I.ID_Item = '$itemAtual'";
-	  		
-	  		#echo "Consulta SQL: ".$resultado;
-
+			$resultado = "SELECT * FROM item 
+			 	 		  WHERE 
+			   	 		  nomeItem LIKE '%$itemAtual%' and categoria = 'microcontrolador' ";
 	  		$conn = New Conexao;
 
 	  	   	$busca_resultado = mysqli_query($conn->{'conexaoBD'}(), $resultado);
 
 	  	   	#$row = $busca_resultado->fetch_row();
 	  	   	/* associative array */
-	  	   	$row = $busca_resultado->fetch_array(MYSQLI_BOTH);
-
-	  	   #	echo $row[0];
-
-	  	   	if ($row[0] > 0) {
-	  	   	    return $row;
-	  	   	  #  echo "IF 1: ".$row[0]['nomeItem'];
+	  	   	if (!empty($busca_resultado)) {
+	  	   	    #echo "IF 1: ".$row[0]['nomeItem'];
+	  	   	    return $busca_resultado;
+	  	   	   
 	  	   	} else {
 	  	   		#echo 0;
 	  	   		#echo "IF 2: ".$row[0]['nomeItem'];

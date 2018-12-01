@@ -1,23 +1,98 @@
-<?php 
 
+<?php
 
-include_once("conexao/Fachada.class.php");
-include_once("conexao/MicrocontroladorVO.class.php");
+    include_once("conexao/Fachada.class.php");
+    include_once("conexao/AtuadorVO.class.php");
+ 	session_start();
+ 	#Informações gerais
 
-session_start();
-$itemAtual  = $_POST['busca'];
-#$itemAtual = $_SESSION["itemAtual"]; 
+if(isset($_FILES['caminho_img_componente'])) { 
+    #echo "Caminho Componente: ".empty($_FILES['imgComponente']['name']);
+    if(!empty($_FILES['caminho_img_componente']['name'])){
+      $extensaoI1 =  strtolower(substr($_FILES['caminho_img_componente']['name'],-4));// pega a extensão do arquivo
+      $novo_nome = md5(time()). $extensaoI1 ;
+      $diretorioIMG = "upload/";
+      $caminho_img_componente = $diretorioIMG."componente_".$novo_nome;
+      move_uploaded_file($_FILES['caminho_img_componente']['tmp_name'], $caminho_img_componente); 
+    }else
+    {
+      $caminho_img_componente = $_FILES['caminho_img_componente']['name'];
+    }
+}else { 
+      echo"Você não realizou o upload de forma satisfatória."; 
+} 
+  $idItem                = $_SESSION["itemAtual"];
+	$nome 			 		       = $_POST['nome'];
+	$modelo			 		       = $_POST['tipo'];
+	$temperatura_ope  		 = $_POST['temperatura_ope'];
+	$dimensao		  	 	     = $_POST['dimensao'];
+	$link_DS 		 		       = $_POST['link_DS'];
+	$precoMedio 	  	 	   = $_POST['preco_medio'];
+	$palavra_chave	 		   = $_POST['palavra_chave'];
+	
+	$cor 	 			 	         = $_POST['cor'];
+	$controlador 	 		 	   = $_POST['controlador'];
+	$compativel	  	     	 = $_SESSION['ID_Item'];
+	$tensaoOperacao			   = $_POST['tensao_nom']; 
+	$infoGerais		     	   = $_POST['info_add'];
 
-$fachada = new Fachada;
-#$micro = new MicrocontroladorVO;
+  
 
-$arrayResult  = $fachada->exibirItem($itemAtual);
+	#Informações Elétricas se Recaregável 
 
-$linkCategoria = '#';
+	$imprimir = '';
+	$tipoAlert = 'sucess';
+	$labelAlerta = '';
+	$labelLink = '';
+	$Link = 'TelaInserirAtuador.php';
 
+	$Atuador = new AtuadorVO();
 
+  $Atuador->ID_Item               = $idItem;
+	$Atuador->img_componente 	   = $caminho_img_componente;
+	$Atuador->nome 			         = $nome;
+	$Atuador->modelo 				     = $modelo;			
+	$Atuador->temperaturaOperacao = $temperatura_ope;
+	$Atuador->dimensao 			     = $dimensao;
+	$Atuador->linkDS				       = $link_DS;
+	$Atuador->precoMedio 			   = $precoMedio;
+	$Atuador->palavra_chave       = $palavra_chave;	
+	
+	$Atuador->cor         		    = $cor;
+	$Atuador->controlador 				= $controlador ;
+	$Atuador->compativel         = $compativel;
+	$Atuador->tensaoOperacao	    = $tensaoOperacao;	
+	$Atuador->infoGerais			    = $infoGerais;
+	 
+	
+	$fachada = new Fachada();
 
+	$result = $fachada->atualizarAtuador($Atuador);
+	#echo "Resultado: ".$result;
+	#echo $result."Tá retornando isso!";
+	if ($result == -1) {
+    $imprimir = "Item não cadastrado!";
+    $tipoAlert = "alert alert-warning alert-dismissible fade show";
+    $labelAlerta = 'Atenção! ';
+    $labelLink = 'Tente cadastrar um item novo';
+  }else if ($result == -2) {
+
+    $imprimir = "Erro ao atualizar item!";
+    $tipoAlert = "alert alert-danger";
+    $labelAlerta = 'Erro! ';
+    $labelLink = 'Tente novamente';
+  }else
+  {
+    $imprimir = " Componente atualizado!";
+    $tipoAlert = "alert alert-success";
+    $labelAlerta = 'Sucesso! ';
+    $labelLink = 'Visualizar!';
+    $Link = 'TelaExibirAtuador.php';
+    $_SESSION["itemAtual"] = $result;
+
+  }
 ?>
+
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -29,12 +104,12 @@ $linkCategoria = '#';
     <link rel="stylesheet" href="bootstrap/compiler/bootstrap.css">
     <link rel="stylesheet" href="bootstrap/compiler/style.css">
 
-
-    <title>Eletronics Component Catalog</title>
+      <title>Eletronics Component Catalog DMI</title>
   </head>
   <body>
+ 
+<!--   ============================ Cabeçalho ===============================================--> 
 
-  <!--   ============================ Cabeçalho ===================================================--> 
 <div class="container d-flex bd-highlight mb-3">
   <img src="img/logo2.png" class="img mr-auto p-2 bd-highlight" align="center">
       <?php 
@@ -94,7 +169,7 @@ $linkCategoria = '#';
            Gerenciar
          </a>
           <?php } }?>
-         <a href="TelaFavoritos.php" class="btn btn-primary  mr-2 ml-2 mr-auto p-2 bd-highlight">
+         <a href="#" class="btn btn-primary  mr-2 ml-2 mr-auto p-2 bd-highlight">
           <svg  id="i-star" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
               <path d="M16 2 L20 12 30 12 22 19 25 30 16 23 7 30 10 19 2 12 12 12 Z" />
           </svg>  
@@ -110,82 +185,15 @@ $linkCategoria = '#';
          </form> 
        </nav>
 
-<!--   =============================Início do corpo principal=======================================   -->
+<!--   ===================  Início do corpo principal=======================================   -->
 
- <h5 class="modal-title mb-3 mt-4" align="center"><b>Lista de resultados</b></h5>
- <div  class="container-fluid  d-flex align-items-center flex-column bd-highlight  quadradoListarItens" >
-  
-   <!--   =============================  =======================================   -->     
-      <div class="container" >
+<div class="<?php echo($tipoAlert) ?>" role="alert" align="center">
+  <strong><?php echo($labelAlerta) ?></strong> <?php echo($imprimir) ?>
+  <a href="<?php echo($Link) ?>" class="alert-link"><?php echo($labelLink) ?></a>
+</div>
 
-          <div class="divScroll" data-spy="scroll" data-offse="0">
-              <!-- Inserir componentes dessa lista em um for do tamanho do retorno -->
-             
-         <?php  
-             
-           #echo "Itens retornados: ".count($arrayResult);
-         while ($row =  mysqli_fetch_array($arrayResult,MYSQLI_ASSOC)) {# echo "Palavra chave:".$row['palavraChave'];?>
-            
-              <li class="list-group-item list-group-item-primary d-flex bd-highlight mb-3 mr-2">
-                 <!-- Adicionar comportamento de salvar na lista de favoritos -->
-                
-                <a href="#" class="btn btn-outline-primary tamanhoBTStar mt-3 mr-3 ml-2  p-2 bd-highlight  p-2 bd-highlight"> 
-                  <svg id="i-star" viewBox="0 0 43 43" width="30" height="25" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                      <path d="M16 2 L20 12 30 12 22 19 25 30 16 23 7 30 10 19 2 12 12 12 Z" />
-                  </svg>    
-                </a>
-                <img src="<?php echo  $row['img_componente']; ?>" 
-                class="img mt-1" align="center" width="90" height="65">
-          <?php 
-          switch ($row['categoria']) {
-            case 'microcontrolador':
-               $linkCategoria = "TelaExibirMicrocontrolador.php";
-              break;
-            case 'bateria':
-               $linkCategoria = "TelaExibirBateria.php";
-              break;
-            case 'sensor':
-                $linkCategoria = "TelaExibirSensor.php";
-                break;
-            case 'atuador':
-                $linkCategoria = "TelaExibirAtuador.php";
-                break;
-            case 'shield':
-                $linkCategoria = "TelaExibirShield.php";
-                break;
-            case 'srojeto':
-                $linkCategoria = "TelaExibirProjeto.php";
-                break;
-          } ?>
-
-          <form class="form-inline  mr-auto" method="POST" action="<?php echo $linkCategoria;?>" data-toggle="validator" role="form">
-            <input type="hidden" name="ItemPesquisa" id="cod_processo" value="<?php echo $row['ID_Item']; ?>"/> 
-               <button  type="submit" class="btn btn-outline-primary mr-auto ml-3 mb-1 mt-2 border-0 " align="center" ">  
-                  <h6 style="text-align:center;">
-                    <p>
-                    <?php echo  "<b>Nome Item:</b> ".$row['nomeItem']." <b> Preço Médio: </b> R$ ". $row['precoMedio']."</br> <b> Palavras Chave:</b> ". $row['palavraChave'];?> 
-                   </p>
-                 </h6> 
-                </button>
-            </form> 
-                <div>
-                <a href="TelaCompararComponentes.php" class="btn btn-primary mt-2 mr-0 p-2 bd-highlight tamanhoBTNS p-2 bd-highlight">  
-                  Comparar
-                </a>
-                </div>
-              </li>
-             <?php } mysqli_free_result($arrayResult); ?>  
-           
-<!--Fim da informações do Primeiro Item da Lista. Os outros deverão ser retirados e a geração deve vir a partir de um laço -->           
-          </div>
-      </div>
-    </div>
-
-
-
-      <!-- <button type="button" class="btn btn-primary">Primary</button> -->
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- ======================== Fim do  alert =============++++++++++++++=====================   -->
+    <script src="bootstrap/js/validator.min.js"></script>
     <script src="jquery/dist/jQuery.js"></script>
     <script src="popper.js/dist/umd/popper.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>

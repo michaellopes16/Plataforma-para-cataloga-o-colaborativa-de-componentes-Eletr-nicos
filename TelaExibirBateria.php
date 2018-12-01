@@ -162,7 +162,7 @@ $_SESSION["itemAtual"] = $idItem;
      <tr>
        <th scope="row">DataSheet</th>
        <td>
-          <a href="<?php $arrayResult['linkDataSheet']; ?>" class="btn button-link">
+          <a href="<?php echo $arrayResult['linkDataSheet']; ?>" class="btn button-link">
             <?php echo $arrayResult['linkDataSheet']; ?>
           </a>
        </td>
@@ -274,9 +274,7 @@ $_SESSION["itemAtual"] = $idItem;
    <tbody>
      <tr class="table-primary">
        <td>
-         <p>
-          <?php echo $arrayResult['infoAdicionais']; ?>
-         </p>
+           <textarea class="form-control" align="start" readonly="readonly" name="info_add" id="ID_Campo_Ind_Add" rows="10" cols="200" style="resize: none; width:100%;background-color:#0000; border-color:#0000; "  > <?php echo $arrayResult['infoAdicionais']; ?></textarea>
        </td>
      </tr>
    </tbody>

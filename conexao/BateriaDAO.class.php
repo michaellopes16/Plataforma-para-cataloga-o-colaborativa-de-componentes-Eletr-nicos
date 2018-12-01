@@ -106,7 +106,7 @@ class BateriaDAO{
 	   if(!$msg_resultadoItem || !$resultadoCadastroItem || !$resultadobateria || !$item_Euma_bateria
 	   	|| !$modelo_bateria || !$info_eletricas || !$info_gerais)
 	   {
-		return 2;
+		return -2;
 	   }else
 	   {
 		return  $idItemReturn;
@@ -314,7 +314,7 @@ function excluirBateria($bateriaID)
 
 	   	$row = $busca_resultado->fetch_row();
 	   	if ($row[0] > 0) {
-	   	    return 1;
+	   	    return -1;
 	   	} else {
 	 	    return $this->inserirBateria($bateria, $conn);
 	   	}

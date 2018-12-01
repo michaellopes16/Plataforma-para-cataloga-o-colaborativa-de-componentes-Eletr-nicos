@@ -1,4 +1,35 @@
-<?php session_start();?>
+<?php session_start();
+include_once("conexao/Fachada.class.php");
+
+$_SESSION["ItemAnterior"] = '';
+
+if(isset($_SESSION["ItemAnterior"])){
+
+  if(isset($_POST["ItemPesquisa"])){
+
+    $idItem = $_POST["ItemPesquisa"];
+    $_SESSION["itemAtual"] = $idItem; 
+    #echo "Item pesquisa no Tela Exibir: ".$idItem."</br>";
+  } 
+}else
+{
+  $_SESSION["itemAtual"] = $_SESSION["ItemAnterior"];
+}
+
+if( isset($_SESSION["itemAtual"]))
+{
+  $idItem = $_SESSION["itemAtual"];
+}
+
+$fachada = new Fachada;
+
+$arrayResult  = $fachada->exibirAtuador($idItem);
+
+$_SESSION["itemAtual"] = $idItem;
+
+$resultCompativel = $fachada->atuadorGetCompativel($idItem);
+
+?>
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -15,27 +46,53 @@
   </head>
   <body>
 
-<!--   ======================== Cabeçalho =============================================-->  
+<!--   ============================ Cabeçalho ===============================================--> 
 
-<?php if($_SESSION["logado"] == 1){ ?>
-      <div class="container d-flex bd-highlight mb-3">
-        <img src="img/logo2.png" class="img mr-auto p-2 bd-highlight" align="center">
-         <div class="mt-2">
-           <svg align="center" id="i-user" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                  <path d="M22 11 C22 16 19 20 16 20 13 20 10 16 10 11 10 6 12 3 16 3 20 3 22 6 22 11 Z M4 30 L28 30 C28 21 22 20 16 20 10 20 4 21 4 30 Z" />
-            </svg>
-          <label class=" bd-highlight mt-5 mr-3">
-          <h4><?php echo $_SESSION["nomeUser"];  ?></h4> 
-          </label>
-          </div>
-          <a href="TelaLogin.php" class="btn btn-primary p-2 bd-highlight tamanhoBTNS mt-5 ml-4">
-            <svg id="i-signout" viewBox="0 0 30 30" width="25" height="20"fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                <path d="M28 16 L8 16 M20 8 L28 16 20 24 M11 28 L3 28 3 4 11 4"  />
-            </svg>
-          Sair
-          </a>
-      </div>
- <?php } ?>
+<div class="container d-flex bd-highlight mb-3">
+  <img src="img/logo2.png" class="img mr-auto p-2 bd-highlight" align="center">
+      <?php 
+        if(isset($_SESSION['logado']) && !empty($_SESSION['logado'])){
+          if($_SESSION["logado"] == 1){ ?>
+            <div class="container mb-5">
+                 <div class="d-flex flex-row-reverse mb-4">
+                    
+                    <a href="TelaLogin.php" class="btn btn-primary p-2 bd-highlight tamanhoBTNS ml-4">
+                      <svg id="i-signout" viewBox="0 0 30 30" width="25" height="20"fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                          <path d="M28 16 L8 16 M20 8 L28 16 20 24 M11 28 L3 28 3 4 11 4"  />
+                      </svg>
+                    Sair
+                    </a>
+                     <div>
+                         <svg align="center" id="i-user" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                <path d="M22 11 C22 16 19 20 16 20 13 20 10 16 10 11 10 6 12 3 16 3 20 3 22 6 22 11 Z M4 30 L28 30 C28 21 22 20 16 20 10 20 4 21 4 30 Z" />
+                          </svg>
+                        <label class=" bd-highlight mt mr-3">
+                        <h4><?php echo $_SESSION["nomeUser"];  ?></h4> 
+                        </label>
+                    </div>
+                </div> 
+            </div> 
+      <?php }else{
+              ?>
+               <div class="container mb-4 ">
+                      <div class="d-flex flex-row-reverse">
+                          <a href="TelaLogin.php" class="btn btn-primary mr-2">Entrar</a>
+                      </div> 
+                </div>
+      <?php
+            }
+      }else{ 
+      ?>
+            <div class="container mb-4 ">
+                  <div class="d-flex flex-row-reverse">
+                      <a href="TelaLogin.php" class="btn btn-primary mr-2">Entrar</a>
+                  </div> 
+            </div>      
+      <?php 
+          }
+      ?>
+</div>
+
        <nav class="navbar navbar-expand-lg bg-gradient-primary d-flex bd-highlight mb-3 ">
          <a href="index.php" class="btn btn-primary mr-0  p-2 bd-highlight"> 
            <svg  id="i-home" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -43,15 +100,20 @@
            </svg>   
            Início
          </a>
-         <?php if($_SESSION["logado"] == 1){ ?>
+       <?php 
+       if(isset($_SESSION['logado']) && !empty($_SESSION['logado'])){
+         if($_SESSION["logado"] == 1){ ?>
          <a href="TelaGerenciarComponentes.php" class="btn btn-primary mr-0 ml-2  p-2 bd-highlight"> 
            <svg  id="i-portfolio" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                <path d="M29 17 L29 28 3 28 3 17 M2 8 L30 8 30 16 C30 16 24 20 16 20 8 20 2 16 2 16 L2 8 Z M16 22 L16 18 M20 8 C20 8 20 4 16 4 12 4 12 8 12 8" />
            </svg>   
            Gerenciar
          </a>
-          <?php } ?>
-         <a href="#" class="btn btn-primary  mr-2 ml-2 mr-auto p-2 bd-highlight">
+        <?php
+         } 
+        }
+        ?>
+         <a href="TelaFavoritos.php" class="btn btn-primary  mr-2 ml-2 mr-auto p-2 bd-highlight">
           <svg  id="i-star" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
               <path d="M16 2 L20 12 30 12 22 19 25 30 16 23 7 30 10 19 2 12 12 12 Z" />
           </svg>  
@@ -67,60 +129,85 @@
          </form> 
        </nav>
 
-<!--   ==================== Início do corpo principal=======================================   -->
-
-
+<!--   ===================  Início do corpo principal=======================================   -->
 
  <h5 class="modal-title mb-3 mt-4" align="center"><b>Características do Atuador</b></h5>
- <img src="img/ItemTeste.png" class="img rounded mx-auto d-block" width="200" height="130" align="center">
+ <img src="<?php echo $arrayResult['img_componente']; ?>" class="img rounded mx-auto d-block" width="200" height="170" align="center">
    <!--   ============================= Info gerais =======================================   -->
  <table class="table table-striped">
  <h4 class="mt-5 mb-4 ml-3 border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-2" align="start">Informações Gerais</h4>
    <tbody>
+    <tr>
+      <th scope="row">Atualidado por:</th>
+      <td><?php echo $arrayResult['primeiroNome']." ".$arrayResult['sobreNome']." (".$arrayResult['nomeUsuario'].")"; ?> <b>  em:  </b> <?php echo " ".$arrayResult['dataCadastro']; ?>
+      </td>
+    </tr>
      <tr class="table-primary">
        <th scope="row">Nome</th>
-       <td>...</td>
+        <td><?php echo $arrayResult['nome']; ?></td>
      </tr>
      <tr>
        <th scope="row">Modelo</th>
-       <td>...</td>
+       <td><?php echo $arrayResult['tipo']; ?></td>
      </tr>
      <tr class="table-primary" >
        <th scope="row">Temperatura de Operação</th>
-       <td>...</td>
+       <td><?php echo $arrayResult['temperaturaOperacao']; ?></td>
      </tr>
      <tr>
        <th scope="row">Dimensões</th>
-       <td>...</td>
+       <td><?php echo $arrayResult['dimensao']; ?></td>
      </tr>
      <tr class="table-primary" >
        <th scope="row">Preço Médio</th>
-       <td>...</td>
+       <td><?php echo "R$ ". $arrayResult['precoMedio']; ?> </td>
      </tr>
      <tr >
        <th scope="row">DataSheet</th>
        <td>
-          <a href="https://www.farnell.com/datasheets/1682209.pdf" class="btn button-link">https://www.farnell.com/datasheets/1682209.pdf
+          <a href="<?php echo $arrayResult['linkDataSheet'];?>" class="btn button-link" target="_blank">
+            <?php echo $arrayResult['linkDataSheet']; ?>
           </a>
        </td>
      </tr>
      <tr class="table-primary" >
        <th scope="row">Palavras-Chave</th>
-       <td>
-          <td>...</td>
-       </td>
+          <td>
+             <?php echo $arrayResult['palavraChave']; ?>
+          </td>
      </tr>
      <tr >
        <th scope="row">Cor</th>
-       <td></td>
+        <td>
+             <?php echo $arrayResult['cor']; ?>
+        </td>
      </tr>
      <tr  class="table-primary">
        <th scope="row">Compatível com:</th>
-       <td></td>
+       <td>
+         <?php 
+         while ($row =  mysqli_fetch_array($resultCompativel,MYSQLI_ASSOC)) { #echo "Palavra  
+           #echo $arrayResult['ID_Item'];
+         ?>    
+             <form method="POST" action="TelaExibirMicrocontrolador.php" data-toggle="validator" role="form" align="start" >
+               <input type="hidden" name="ItemPesquisa" id="cod_processo" value="<?php echo $row['ID_Item']; ?>"/>
+               <input type="hidden" name="ItemAnterior" id="cod_processo" value="<?php echo $arrayResult['ID_Item']; ?>"/>  
+                 <button  type="submit" class="btn btn-outline-primary border-0 " target="_blank">  
+                   <h6 style="text-align:center;">
+                     <p>
+                        <?php echo  "-".$row['nomeItem'];?> 
+                     </p>
+                   </h6> 
+                 </button>
+             </form>
+         <?php } mysqli_free_result($resultCompativel); ?> 
+       </td>
      </tr>
      <tr >
        <th scope="row">Controlador</th>
-       <td></td>
+       <td>
+       <?php echo $arrayResult['controlador']; ?>
+       </td>
      </tr>
    </tbody>
  </table>
@@ -132,7 +219,7 @@
    <tbody>
      <tr class="table-primary">
        <th scope="row">Tensão Nominal (operação)</th>
-       <td>5V</td>
+       <td><?php echo $arrayResult['tensaoOperacao']; ?></td>
      </tr>
    </tbody>
  </table>
@@ -147,40 +234,30 @@
    <tbody>
      <tr class="table-primary">
        <td>
-         <p>
-           Arduino
-           Arduino Uno logo.png
-           Arduino-uno-perspective-transparent.png
-           Arduino Uno
-           Desenvolvedor  • Massimo Banzi, David Cuartielles, Tom Igoe, Gianluca Martino e David Mellis.
-            • Baseado no Processing, de Casey Reas e Ben Fry.
-            • Comunidade Código aberto.
-           Plataforma  C/C++
-           Lançamento  2005
-           Versão estável  1.8.2 (22 de março de 2017; há 11 meses [1])
-           Versão em teste 1.5.8 (10 de janeiro de 2014; há 4 anos[1])
-           Linguagem Java
-           Sistema operacional Microsoft Windows, Linux, Mac OS X[2][3]
-           Gênero(s) Ambiente de desenvolvimento integrado
-           Licença  • Software em LGPL ou GPL
-            • Hardware em Creative Commons
-           Estado do desenvolvimento Ativo
-           Página oficial  http://www.arduino.cc/en/ (em inglês)
-           Arduíno[2][4][5] é uma plataforma de prototipagem eletrônica de hardware livre e de placa única,[6] projetada com um microcontrolador Atmel AVR com suporte de entrada/saída embutido, uma linguagem de programação padrão,[7] a qual tem origem em Wiring, e é essencialmente C/C++.[8] O objetivo do projeto é criar ferramentas que são acessíveis, com baixo custo, flexíveis e fáceis de se usar por principiantes e profissionais. Principalmente para aqueles que não teriam alcance aos controladores mais sofisticados e ferramentas mais complicadas.[9]
-         </p>
+        <textarea class="form-control" align="start" readonly="readonly" name="info_add" id="ID_Campo_Ind_Add" rows="15" cols="200" style="resize: none; width:100%;background-color:#0000; border-color:#0000; "  > <?php echo $arrayResult['infoAdicionais']; ?></textarea>
        </td>
      </tr>
    </tbody>
  </table>
- <!--   =============================   Botão Editar  =========================================   -->       
-
+ <!--   =============================   Botão Editar ==================================   -->       
+<?php 
+  if(isset($_SESSION['logado']) && !empty($_SESSION['logado'])){
+    if($_SESSION["logado"] == 1){ 
+  ?>
        <!--  Sò deve aparecer se o usuário estiver logado    -->        
-      <a href="TelaEditarAtuador.php" class="btn btn-primary mt-5 mb-3 ml-2" align="center">
-       <svg id="i-edit" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-           <path  d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"  />
-       </svg> 
-      Editar Conteúdo
-      </a>
+      <form  class="" method="POST" action="TelaEditarAtuador.php" data-toggle="validator" role="form">
+        <input type="hidden" name="ItemPesquisa" id="cod_processo" value="<?php echo $_SESSION["itemAtual"] ?>"/> 
+            <button  type="submit" class="btn btn-primary mt-3  tamanhoBTNS" align="center" ">  
+               <svg id="i-edit" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+               <path  d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"  />
+               </svg>   
+             Editar Conteúdo
+            </button>
+        </form> 
+  <?php
+    } 
+  }
+  ?>
    <!--   =============================Projetos Relacionados=======================================   -->
  <h4 class="mt-5 mb-4 ml-3 border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-2" align="start">Projetos Relacionados</h4>
 

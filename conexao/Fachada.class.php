@@ -9,6 +9,8 @@ include_once("ShieldDAO.class.php");
 include_once("ShieldVO.class.php");
 include_once("AtuadorDAO.class.php");
 include_once("AtuadorVO.class.php");
+include_once("SensorDAO.class.php");
+include_once("SensorVO.class.php");
 
 class Fachada{
 
@@ -197,6 +199,50 @@ class Fachada{
 	$resultado = new AtuadorDAO();
 	
 	return $resultado->atuadorGetCompativel($ID_Atuador);
+	}
+
+	#====================== Parte relacionada ao Sensor  ==================#	
+	function inserirSensor($Sensor){
+	
+	$resultado = new SensorDAO();
+	return $resultado->verificarExistenciaSensor($Sensor);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+	function exibirSensor($idItem){
+	echo " Retorno na fachada: antes: ". $idItem."</br>";
+	$resultado = new SensorDAO();
+	$retorno = $resultado->exibirSensor($idItem);
+	#echo " Retorno na fachada:: ". $resultado['nomeItem']."</br>";
+	#echo "Retorno na fachada: ".$retorno['img_componente'];
+	return $retorno;
+	#$cadastro ->{'verificarUsuario'}();
+	}
+	function atualizarSensor($bateria){
+	
+	$resultado = new SensorDAO();
+	return $resultado->verificarExistenciaSensorByID($bateria);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+	function excluirSensor($Sensor){
+
+	$resultado = new SensorDAO();
+	
+	return $resultado->excluirSensor($Sensor);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+	function exibirSensorPorCategoria($nomeUser){
+	
+	$resultado = new SensorDAO();
+	return $resultado->exibirSensorPorCategoria($nomeUser);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+	function sensorGetCompativel($ID_Sensor){
+	$resultado = new SensorDAO();
+	
+	return $resultado->sensorGetCompativel($ID_Sensor);
 	}
 }
 ?>

@@ -138,7 +138,7 @@ $resultCompativel = $fachada->atuadorGetCompativel($idItem);
  <h4 class="mt-5 mb-4 ml-3 border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-2" align="start">Informações Gerais</h4>
    <tbody>
     <tr>
-      <th scope="row">Atualidado por:</th>
+      <th scope="row">Atualizado por:</th>
       <td><?php echo $arrayResult['primeiroNome']." ".$arrayResult['sobreNome']." (".$arrayResult['nomeUsuario'].")"; ?> <b>  em:  </b> <?php echo " ".$arrayResult['dataCadastro']; ?>
       </td>
     </tr>
@@ -189,7 +189,7 @@ $resultCompativel = $fachada->atuadorGetCompativel($idItem);
          while ($row =  mysqli_fetch_array($resultCompativel,MYSQLI_ASSOC)) { #echo "Palavra  
            #echo $arrayResult['ID_Item'];
          ?>    
-             <form method="POST" action="TelaExibirMicrocontrolador.php" data-toggle="validator" role="form" align="start" >
+             <form method="POST" action="TelaExibirAtuador.php" data-toggle="validator" role="form" align="start" >
                <input type="hidden" name="ItemPesquisa" id="cod_processo" value="<?php echo $row['ID_Item']; ?>"/>
                <input type="hidden" name="ItemAnterior" id="cod_processo" value="<?php echo $arrayResult['ID_Item']; ?>"/>  
                  <button  type="submit" class="btn btn-outline-primary border-0 " target="_blank">  

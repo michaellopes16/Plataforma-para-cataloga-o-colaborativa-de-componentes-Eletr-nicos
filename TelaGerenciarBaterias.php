@@ -171,7 +171,7 @@ if(isset($_SESSION["excluiu"]) || !empty($_SESSION["excluiu"]))
             </div>
 
             <div class="col-md-6 mr-4 ml-5">
-              <form method="POST" action="TelaExibirMicrocontrolador.php" data-toggle="validator" role="form" align="center" >
+              <form method="POST" action="TelaExibirBateria.php" data-toggle="validator" role="form" align="center" >
                 <input type="hidden" name="ItemPesquisa" id="cod_processo" value="<?php echo $row['ID_Item']; ?>"/> 
                    <button  type="submit" class="btn btn-outline-primary  mb-1 mt-2 border-0 ">  
                       <h6 style="text-align:center;">

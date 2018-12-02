@@ -347,9 +347,9 @@ function excluirAtuador($AtuadorID)
 			FROM usuario                      			 AS U 
 			INNER JOIN cadastro_item          			 AS CI ON CI.ID_Usuario_FK = U.ID_Usuario 
 			INNER JOIN item                   			 AS I  ON I.ID_Item = CI.ID_Item_FK 
-			INNER JOIN item_eum_Atuador         			 AS EU ON EU.ID_Item_FK = I.ID_Item
+			INNER JOIN item_eum_atuador         		 AS EU ON EU.ID_Item_FK = I.ID_Item
 			INNER JOIN atuador 			      			 AS A  ON A.ID_Atuador = EU.ID_Atuador_FK
-			WHERE I.categoria = 'Atuador' and U.nomeUsuario='$nomeUser'";
+			WHERE I.categoria = 'atuador' and U.nomeUsuario='$nomeUser'";
 	  		
 
 	  		$conn = New Conexao;

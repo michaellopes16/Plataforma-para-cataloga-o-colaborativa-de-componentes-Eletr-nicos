@@ -298,6 +298,7 @@ function excluirShield($ShieldID)
 			$conn = New Conexao;
 
 	  	   	$busca_resultado = mysqli_query($conn->{'conexaoBD'}(), $resultado);
+	  	   	echo "Count Busca result no shield: ".count((array)$busca_resultado);
 
 	  	    if (!empty($busca_resultado)) {
 	  	      #echo "IF 1: ".$row[0]['nomeItem'];

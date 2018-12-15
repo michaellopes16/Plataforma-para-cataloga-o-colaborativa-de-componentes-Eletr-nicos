@@ -109,19 +109,21 @@ $arrayResult  = $fachada->exibirSensorPorCategoria($ID_ItemAtual);
            Gerenciar
          </a>
           <?php } ?>
-         <a href="#" class="btn btn-primary  mr-2 ml-2 mr-auto p-2 bd-highlight">
+         <a href="TelaFavoritos.php" class="btn btn-primary  mr-2 ml-2 mr-auto p-2 bd-highlight">
           <svg  id="i-star" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
               <path d="M16 2 L20 12 30 12 22 19 25 30 16 23 7 30 10 19 2 12 12 12 Z" />
           </svg>  
          Favoritos</a>
-         <form class="form-inline">
-           <input class="form-control ml-4 mr-2" type="search" placeholder="Buscar...">
-           <a href="TelaFavoritos.php" class="btn btn-primary p-2 ml-2 bd-highlight">
-            <svg  id="i-star" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-               <circle cx="14" cy="14" r="12" />
-                <path d="M23 23 L30 30"  />
-            </svg>  
-           Buscar</a>
+         <form class="form-inline mt-2" method="POST" action="TelaListarComponente.php" data-toggle="validator" role="form">
+            <input class="form-control p-2" type="search" name="busca" size="40" maxlength="50" placeholder="Buscar..." id="ID_Campo_Busca">
+           <input type="hidden" name="tipoBusca" value="<?php echo $_SESSION['tipoBusca']; ?>">
+           <button type="submit" class="btn btn-primary"  id="button-pesquisar">
+             <svg  id="i-star" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <circle cx="14" cy="14" r="12" />
+                 <path d="M23 23 L30 30"  />
+             </svg>  
+             Buscar
+           </button>   
          </form> 
        </nav>
 
@@ -193,11 +195,8 @@ if(isset($_SESSION["excluiu"]) || !empty($_SESSION["excluiu"]))
                         Editar
                       </button>
               </form> 
-             </div>
-             
+             </div>    
              <div class="col-md-1 ml-3" align="center">
-
-
               <button class="btn btn-danger mt-3 tamanhoBTNS" data-toggle="modal" data-target="#ID_Modal_Excluir" action="<?php $ID_ItemAtual = $row['ID_Item']; $itemAutal =  $row; ?>">  
                     <svg id="i-trash" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                         <path d="M28 6 L6 6 8 30 24 30 26 6 4 6 M16 12 L16 24 M21 12 L20 24 M11 12 L12 24 M12 6 L13 2 19 2 20 6" />

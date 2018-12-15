@@ -271,7 +271,7 @@ function excluirSensor($SensorID)
 
 	function verificarExistenciaSensorByID($Sensor){
 
-		echo "ID do Sensor: ".$Sensor->ID_Item;
+		#echo "ID do Sensor: ".$Sensor->ID_Item;
 		$resultado = "SELECT COUNT(*) FROM item WHERE item.ID_Item ='$Sensor->ID_Item'";
 		#stristr($resultado, 'nome');
 

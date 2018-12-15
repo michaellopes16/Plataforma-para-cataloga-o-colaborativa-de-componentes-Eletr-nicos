@@ -117,14 +117,16 @@ if($arrayResult['tipo'] != "Recarregável")
               <path d="M16 2 L20 12 30 12 22 19 25 30 16 23 7 30 10 19 2 12 12 12 Z" />
           </svg>  
          Favoritos</a>
-         <form class="form-inline">
-           <input class="form-control ml-4 mr-2" type="search" placeholder="Buscar...">
-           <a href="TelaFavoritos.php" class="btn btn-primary p-2 ml-2 bd-highlight">
-            <svg  id="i-star" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-               <circle cx="14" cy="14" r="12" />
-                <path d="M23 23 L30 30"  />
-            </svg>  
-           Buscar</a>
+         <form class="form-inline mt-2" method="POST" action="TelaListarComponente.php" data-toggle="validator" role="form">
+            <input class="form-control p-2" type="search" name="busca" size="40" maxlength="50" placeholder="Buscar..." id="ID_Campo_Busca">
+           <input type="hidden" name="tipoBusca" value="<?php echo $_SESSION['tipoBusca']; ?>">
+           <button type="submit" class="btn btn-primary"  id="button-pesquisar">
+             <svg  id="i-star" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <circle cx="14" cy="14" r="12" />
+                 <path d="M23 23 L30 30"  />
+             </svg>  
+             Buscar
+           </button>   
          </form> 
        </nav>
 
@@ -302,7 +304,7 @@ if($arrayResult['tipo'] != "Recarregável")
              <label for="exampleFormControlTextarea1">Informações Adicionais</label>
              <textarea class="form-control" name="info_add" id="ID_Campo_Ind_Add" rows="10" style="resize: none" placeholder="Digite aqui alguma informação sobre o componete que não está em um dos campos acima..."> <?php echo $arrayResult['infoAdicionais']; ?></textarea>
 
-      </div>
+        </div>
 
 <!--   ========================= Botão Salvar  =========================================   -->                
      <button type="submit" class="btn btn-primary mt-5 mb-3 ml-4" align="center">

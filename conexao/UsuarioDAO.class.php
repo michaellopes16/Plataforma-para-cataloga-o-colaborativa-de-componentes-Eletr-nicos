@@ -70,8 +70,27 @@ class UsuarioDAO{
   	   		echo 0;
   	 	    return 0;
   	   	}
-  	}
-    }
+  	 }
+  	 function getIdUsuario($usuario){
+  	 	
+  	 	$conn = New Conexao;
+  	 	$resultado = "SELECT ID_Usuario FROM usuario where nomeUsuario='$usuario'";
+  	 	
+  	    $busca_resultado = mysqli_query($conn->{'conexaoBD'}(), $resultado);
+
+    	$busca_resultado = $busca_resultado->fetch_row();
+
+    	#echo "Resultado do ID usuario no DAO: ".$busca_resultado[0];
+
+  	    	if ($busca_resultado) {
+  	    	    return $busca_resultado ;
+  	    	    
+  	    	} else {
+  	    		
+  	  	    return 0;
+  	    	}
+  	  }
+  }
 
 ?>
    

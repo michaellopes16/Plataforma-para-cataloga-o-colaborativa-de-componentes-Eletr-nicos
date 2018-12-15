@@ -29,6 +29,7 @@ $_SESSION["itemAtual"] = $idItem;
 echo "ID sensor:". $arrayResult['nomeItem'];
 
 $resultCompativel = $fachada->sensorGetCompativel($idItem);
+$projetosRelacionados = $fachada->buscarProjetosRelacionados($idItem);
 
 ?>
 <!doctype html>
@@ -184,10 +185,10 @@ $resultCompativel = $fachada->sensorGetCompativel($idItem);
          while ($row =  mysqli_fetch_array($resultCompativel,MYSQLI_ASSOC)) { #echo "Palavra  
            #echo $arrayResult['ID_Item'];
          ?>    
-             <form method="POST" action="TelaExibirSensor.php" data-toggle="validator" role="form" align="start" >
+             <form method="POST" action="TelaExibirMicrocontrolador.php" data-toggle="validator" role="form" align="start" >
                <input type="hidden" name="ItemPesquisa" id="cod_processo" value="<?php echo $row['ID_Item']; ?>"/>
                <input type="hidden" name="ItemAnterior" id="cod_processo" value="<?php echo $arrayResult['ID_Item']; ?>"/>  
-                 <button  type="submit" class="btn btn-outline-primary border-0 " target="_blank">  
+                 <button  type="submit" class="btn btn-outline-primary border-0 " target="_blank">
                    <h6 style="text-align:center;">
                      <p>
                         <?php echo  "-".$row['nomeItem'];?> 
@@ -262,36 +263,26 @@ $resultCompativel = $fachada->sensorGetCompativel($idItem);
    <!--   =============================Projetos Relacionados=======================================   -->
  <h4 class="mt-5 mb-4 ml-3 border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-2" align="start">Projetos Relacionados</h4>
 
- <!-- Cards referentes aos projetos sugeridos para cada componente ao componente 1-->
  <div>
  <div class="row" align="center">
-   <!-- Tamnho da imagem do projeto .../100px180/ style="width: 180px; height: 100px;-->
+   <?php 
+   #echo "ID_Item".$idItem;
+   while ($row =  mysqli_fetch_array($projetosRelacionados,MYSQLI_ASSOC)) { #echo 
+   ?> 
    <div class="card col-md-3 ml-3" style="width: 18rem;">
-     <img class="card-img-top" width="100" height="180" src="img\violao.jpg" alt="Card image cap">
+     <img class="card-img-top" width="100" height="180" src="<?php echo $row['img_projeto'];  ?>" alt="Card image cap">
      <div class="card-body">
-       <h5 class="card-title">Violão LED</h5>
-       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-       <a href="TelaExibirProjeto.php" class="btn btn-primary">Ver o projeto</a>
+       <h5 class="card-title"><?php echo $row['nome'];  ?></h5>
+       <?php $textoDescritivo = substr($row['metodologia'], 0,20);  ?>
+       <p class="card-text"><?php echo $textoDescritivo; ?></p>
+       
+      <form  class="" method="POST" action="TelaExibirProjeto.php" data-toggle="validator" role="form">
+        <input type="hidden" name="ItemPesquisa" value="<?php echo $row['ID_Projeto']; ?>">
+       <button type="submit" class="btn btn-primary">Ver o projeto</button>
+       </form>
      </div>
    </div>
-   <!-- Tamnho da imagem do projeto .../100px180/ style="width: 180px; height: 100px;-->
-   <div class="card col-md-3 ml-3" style="width: 18rem;">
-     <img class="card-img-top" width="100" height="180" src="img\violao.jpg" alt="Card image cap">
-     <div class="card-body">
-       <h5 class="card-title">Violão LED</h5>
-       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-       <a href="TelaExibirProjeto.php" class="btn btn-primary">Ver o projeto</a>
-     </div>
-   </div>
-   <!-- Tamnho da imagem do projeto .../100px180/ style="width: 180px; height: 100px;-->
-   <div class="card col-md-3 ml-3" style="width: 18rem;">
-     <img class="card-img-top" width="100" height="180" src="img\violao.jpg" alt="Card image cap">
-     <div class="card-body">
-       <h5 class="card-title">Violão LED</h5>
-       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-       <a href="TelaExibirProjeto.php" class="btn btn-primary">Ver o projeto</a>
-     </div>
-   </div>
+   <?php } mysqli_free_result($projetosRelacionados); ?> 
  </div>
  </div>
        <!-- <button type="button" class="btn btn-primary">Primary</button> -->

@@ -132,8 +132,8 @@ if(isset($_POST["ID_TirarDaLista"]))
 {       
         $novoArrayNome = array();
         $novoArrayID = array();
-        #echo"Exlcuindo". $_SESSION['Excluir'] ;
-        
+        #echo"quant ID_Item: ".count($_SESSION['ID_Item'])." - NomeItem".$_SESSION['Nome_Item'];
+        if(isset($_SESSION['ID_Item'])){
         foreach(array_combine($_SESSION['Nome_Item'], $_SESSION['ID_Item']) as $nome => $id):
                 
                 if($_SESSION['Excluir'] != $id)
@@ -143,7 +143,7 @@ if(isset($_POST["ID_TirarDaLista"]))
                 }
 
         endforeach;
-          
+        }  
         $_SESSION['Nome_Item'] = $novoArrayNome;
         $_SESSION['ID_Item'] = $novoArrayID;
 

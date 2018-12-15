@@ -11,6 +11,8 @@ include_once("AtuadorDAO.class.php");
 include_once("AtuadorVO.class.php");
 include_once("SensorDAO.class.php");
 include_once("SensorVO.class.php");
+include_once("ProjetoDAO.class.php");
+include_once("ProjetoVO.class.php");
 
 class Fachada{
 
@@ -20,6 +22,13 @@ class Fachada{
 		return $cadastro->verificarNomeUsuario($usuario);
 	#$cadastro ->{'verificarUsuario'}();
 	}
+	function getIdUsuario($usuario){
+
+		$cadastro = new UsuarioDAO();
+		return $cadastro->getIdUsuario($usuario);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+	
 	function logarUsuario($usuario){
 
 	  $logar = new UsuarioDAO();
@@ -55,11 +64,29 @@ class Fachada{
 	return $retorno;
 	#$cadastro ->{'verificarUsuario'}();
 	}
+	function getItenPorCategoria($itemAtual, $categoria)
+	{
+		$resultado = new MicrocontroladorDAO();
+		return $resultado->getItenPorCategoria($itemAtual, $categoria);
+
+	}
+	function exibirItemPorID($itemAutal){
+	
+	$resultado = new MicrocontroladorDAO();
+	return $resultado->exibirItemPorID($itemAutal);
+	#$cadastro ->{'verificarUsuario'}();
+	}
 
 	function exibirItem($itemAutal){
 	
 	$resultado = new MicrocontroladorDAO();
 	return $resultado->exibirItem($itemAutal);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+	function exibirItemPorPalavraChave($itemAutal){
+	
+	$resultado = new MicrocontroladorDAO();
+	return $resultado->exibirItemPorPalavraChave($itemAutal);
 	#$cadastro ->{'verificarUsuario'}();
 	}
 
@@ -210,7 +237,7 @@ class Fachada{
 	}
 
 	function exibirSensor($idItem){
-	echo " Retorno na fachada: antes: ". $idItem."</br>";
+	#echo " Retorno na fachada: antes: ". $idItem."</br>";
 	$resultado = new SensorDAO();
 	$retorno = $resultado->exibirSensor($idItem);
 	#echo " Retorno na fachada:: ". $resultado['nomeItem']."</br>";
@@ -244,5 +271,146 @@ class Fachada{
 	
 	return $resultado->sensorGetCompativel($ID_Sensor);
 	}
+#====================== Parte relacionada ao Projeto  ==================#	
+	function inserirProjeto($Projeto){
+	
+	$resultado = new ProjetoDAO();
+	return $resultado->verificarExistenciaProjeto($Projeto);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+	function buscarProjetosRelacionados($ID_Item){
+	
+		$resultado = new ProjetoDAO();
+		return $resultado->buscarProjetosRelacionados($ID_Item);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+	function exibirProjeto($idItem){
+	#echo " Retorno na fachada: antes: ". $idItem."</br>";
+	$resultado = new ProjetoDAO();
+	$retorno = $resultado->exibirProjeto($idItem);
+	#echo " Retorno na fachada:: ". $resultado['nomeItem']."</br>";
+	#echo "Retorno na fachada: ".$retorno['img_componente'];
+	return $retorno;
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+	function listarProjetoPorPalavraChave($nomeItem)
+	{
+
+	$resultado = new ProjetoDAO();
+	$retorno = $resultado->listarProjetoPorPalavraChave($nomeItem);
+	#echo " Retorno na fachada:: ". $resultado[0]['nome']."</br>";
+	#echo "Retorno na fachada: ".$retorno['img_componente'];
+	return $retorno;
+	#$cadastro ->{'verificarUsuario'}();
+	}
+	function listarProjeto($nomeItem)
+	{
+
+	$resultado = new ProjetoDAO();
+	$retorno = $resultado->listarProjeto($nomeItem);
+	#echo " Retorno na fachada:: ". $resultado[0]['nome']."</br>";
+	#echo "Retorno na fachada: ".$retorno['img_componente'];
+	return $retorno;
+	#$cadastro ->{'verificarUsuario'}();
+	}
+	function atualizarProjeto($bateria){
+	
+	$resultado = new ProjetoDAO();
+	return $resultado->verificarExistenciaProjetoByID($bateria);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+	function excluirProjeto($Projeto){
+
+	$resultado = new ProjetoDAO();
+	
+	return $resultado->excluirProjeto($Projeto);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+	function exibirProjetoPorUsuario($nomeUser){
+	
+	$resultado = new ProjetoDAO();
+	return $resultado->exibirProjetoPorUsuario($nomeUser);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+	function projetoGetCompativel($ID_Projeto){
+	$resultado = new ProjetoDAO();
+	
+	return $resultado->projetoGetCompativel($ID_Projeto);
+	}	
+
+	function getItensGeral($nomeUser){
+	
+	$resultado = new ProjetoDAO();
+	return $resultado->getItensGeral($nomeUser);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+	function inserirAvaliacao($avaliacao, $ID_Usuario, $ID_Projeto){
+	
+	$resultado = new ProjetoDAO();
+	return $resultado->inserirAvaliacao($avaliacao, $ID_Usuario, $ID_Projeto);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+	function inserirComentario($comentario, $id_User, $id_Projeto){
+	
+	$resultado = new ProjetoDAO();
+	return $resultado->inserirComentario($comentario, $id_User, $id_Projeto);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+	function atualizarComentario($comentario,$ID_Comentario, $ID_Usuario, $ID_Projeto){
+	
+	$resultado = new ProjetoDAO();
+	return $resultado->atualizarComentario($comentario,$ID_Comentario, $ID_Usuario, $ID_Projeto);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+	function excluirComentario($ID_Comentario){
+	
+	#echo "Tá entrando na fachada...";
+	$resultado = new ProjetoDAO();
+	return $resultado->excluirComentario($ID_Comentario);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+	function buscarComentario($ID_Projeto){
+	
+	#echo "Tá entrando na fachada...";
+	$resultado = new ProjetoDAO();
+	return $resultado->buscarComentario($ID_Projeto);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+
+	function exibirFavoritoPorUsuario($nomeUser){
+	
+	$resultado = new MicrocontroladorDAO();
+	return $resultado->exibirFavoritoPorUsuario($nomeUser);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+	function exibirProjetoFavoritosPorUsuario($nomeUser){
+	
+	$resultado = new ProjetoDAO();
+	return $resultado->exibirProjetoFavoritosPorUsuario($nomeUser);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+	function inserirFavorito($idItem,$idUser,$idProjeto){
+	
+	$resultado = new MicrocontroladorDAO();
+	return $resultado->verificarExistenciaFavorito($idItem,$idUser,$idProjeto);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+	function excluirFavorito($itemAtual,$tipo){
+	#echo " ta entrando na exlcusão: ". $micro."</br>";
+	$resultado = new MicrocontroladorDAO();
+	return $resultado->excluirFavorito($itemAtual,$tipo);
+	#$cadastro ->{'verificarUsuario'}();
+	}
+
+
 }
 ?>

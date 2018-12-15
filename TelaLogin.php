@@ -1,11 +1,16 @@
 <?php 
+#session_start();
+include_once 'loginFacebook.php';
 
-session_start();
-$_SESSION['nomeUser'] = "";  
-$_SESSION['logado'] = false; 
-
+if(isset($_SESSION['face_access_token'])){
+  #echo "apagando informações do token...";
+  unset($_SESSION['face_access_token']);
+  $_SESSION['nomeUser'] = "";  
+  $_SESSION['logado'] = false;
+}
+#echo "Nome do usuario em Longin:".$_SESSION['nomeUser']."<br>";
+#echo "<br> URL:".$loginUrl;
 ?>
-
 
 <!doctype html>
 <html lang="pt-br">
@@ -47,13 +52,19 @@ $_SESSION['logado'] = false;
   		  </div>
   		  <div class="container mt-4" align="center">
 	  		  <button type="submit" class="btn btn-primary ">Entrar</button>
-	  		  <button type="submit" class="btn btn-outline-primary ml-4"><b>Facebook<b/></button>
+      </form> 
+	  		  <a href="<?php echo $loginUrl; ?>">
+              <button type="button" class="btn btn-outline-primary">Entrar com <b>Facebook</b>
+              </button>
+          </a>
+          <!--
 	  		  <button type="submit" class="btn btn-outline-dark"><b>Google<b/></button>
-  		  </div>
+          -->
+  		    </div>
   		   <div class="container mt-4" align="center">
   		  		<a href="TelaCadastro.html"  class= "btn btn-link ml-5 mb-3">ou <b>Cadastre-se</b></a>
   		   </div>
-  		</form>	
+  	
   	</div>
   	<div class="container-fluid  d-flex align-items-start flex-column bd-highlight mb-3 mt-5">
   		<a href="index.php" class="btn btn-primary mr-2">Voltar</a>

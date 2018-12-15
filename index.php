@@ -1,4 +1,5 @@
 <?php session_start();
+$_SESSION['tipoBusca'] = 1;
 if(isset($_SESSION['logado']) && empty($_SESSION['logado'])){
   $_SESSION["logado"] = 0;
 }
@@ -33,12 +34,12 @@ if(isset($_SESSION['logado']) && empty($_SESSION['logado'])){
                     Sair
                     </a>
                      <div>
-                         <svg align="center" id="i-user" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                      <a href="TelaGerenciarComponentes.php" class="btn btn-outline-primary mr-0 ml-2  p-2 bd-highlight"> 
+                         <svg align="center" id="i-user" viewBox="0 0 30 30" width="25" height="18" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                                 <path d="M22 11 C22 16 19 20 16 20 13 20 10 16 10 11 10 6 12 3 16 3 20 3 22 6 22 11 Z M4 30 L28 30 C28 21 22 20 16 20 10 20 4 21 4 30 Z" />
                           </svg>
-                        <label class=" bd-highlight mt mr-3">
-                        <h4><?php echo $_SESSION["nomeUser"];  ?></h4> 
-                        </label>
+                       <?php echo $_SESSION["nomeUser"];  ?>
+                      </a>
                     </div>
                 </div> 
             </div> 
@@ -62,38 +63,32 @@ if(isset($_SESSION['logado']) && empty($_SESSION['logado'])){
         <img src="img/logo1.png" class="img" align="center">
       </div>
       <!-- -->
-      <div class="container mt-5" align="center">
-            <div class="d-flex justify-content-center ">
-              <form class="form-inline" method="POST" action="TelaListarComponente.php" data-toggle="validator" role="form">
-                <input class="form-control p-2" type="search" name="busca" size="80" maxlength="90" placeholder="Buscar...">
+      <div class="d-flex justify-content-center" align="center">
+        <div class="d-flex flex-column bd-highlight mb-3">
+
+         <form method="POST" action="TelaListarComponente.php" data-toggle="validator" role="form">
+            <div class="input-group mb-3">
+              <input class="form-control p-2" type="search" name="busca" size="80" maxlength="90" placeholder="Buscar..." id="ID_Campo_Busca">
+              <div class="input-group-append">
+                <select class="custom-select" for="ID_Campo_Busca" id="ID_TipoDeBusca" name="tipoBusca">
+                  <option value="1" selected>Por nome</option>
+                  <option value="2">Por projeto</option>
+                  <option value="3">Por Palavra-chave</option>
+                </select>
+               </div>
+            </div>   
                 <button type="submit" class="btn btn-primary"  id="button-pesquisar">
                   <svg  id="i-star" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                      <circle cx="14" cy="14" r="12" />
                       <path d="M23 23 L30 30"  />
                   </svg>  
                   Buscar
-                </button>
-              </form>
-            </div>
-      </div>
+                </button>        
+            </form>
+          </div>
+        </div>
 
-      <div class="container mt-4" align="center">
-        <div class="d-flex justify-content-center ">
-         <div class="d-flex align-items-baseline">
-            <input class="mr-3"  type="radio" aria-label="RadioBox1">Todos os campos</input>
-            <input class="ml-4 mr-2" type="radio" aria-label="RadioBox2"> Nome</input>
-            <input class="ml-4" type="radio" aria-label="RadioBox3"> Tipo</input>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center ">
-         <div class="d-flex align-items-baseline">
-            <input  type="radio" aria-label="RadioBox5">Projetos</input>
-            <input class="ml-4" type="radio" aria-label="RadioBox6"> Descrição</input>
-            <input class="ml-4" type="radio" aria-label="RadioBox7"> Palavra-Chave</input>
-          </div>
-        </div>
-      </div>
-       <div class="container-fluid  d-flex align-items-center flex-column bd-highlight mb-3 mt-5"></div>
+       <div class="container-fluid  d-flex align-items-center flex-column bd-highlight mb-3 mt-5" style="height: 120px;"></div>
        <div class="container-fluid  d-flex align-items-center flex-column bd-highlight mb-3 mt-5"></div>
        <div class="container-fluid  d-flex align-items-center flex-column bd-highlight mb-3 mt-5"></div>
        <div class="container-fluid  d-flex justify-content-center align-items-baseline mb-3 mt-3">

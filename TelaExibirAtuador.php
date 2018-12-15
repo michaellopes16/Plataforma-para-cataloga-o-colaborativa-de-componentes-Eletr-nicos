@@ -28,6 +28,7 @@ $arrayResult  = $fachada->exibirAtuador($idItem);
 $_SESSION["itemAtual"] = $idItem;
 
 $resultCompativel = $fachada->atuadorGetCompativel($idItem);
+$projetosRelacionados = $fachada->buscarProjetosRelacionados($idItem);
 
 ?>
 <!doctype html>
@@ -118,14 +119,16 @@ $resultCompativel = $fachada->atuadorGetCompativel($idItem);
               <path d="M16 2 L20 12 30 12 22 19 25 30 16 23 7 30 10 19 2 12 12 12 Z" />
           </svg>  
          Favoritos</a>
-         <form class="form-inline">
-           <input class="form-control ml-4 mr-2" type="search" placeholder="Buscar...">
-           <a href="TelaFavoritos.php" class="btn btn-primary p-2 ml-2 bd-highlight">
-            <svg  id="i-star" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-               <circle cx="14" cy="14" r="12" />
-                <path d="M23 23 L30 30"  />
-            </svg>  
-           Buscar</a>
+         <form class="form-inline mt-2" method="POST" action="TelaListarComponente.php" data-toggle="validator" role="form">
+            <input class="form-control p-2" type="search" name="busca" size="40" maxlength="50" placeholder="Buscar..." id="ID_Campo_Busca">
+           <input type="hidden" name="tipoBusca" value="<?php echo $_SESSION['tipoBusca']; ?>">
+           <button type="submit" class="btn btn-primary"  id="button-pesquisar">
+             <svg  id="i-star" viewBox="0 0 30 30" width="25" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <circle cx="14" cy="14" r="12" />
+                 <path d="M23 23 L30 30"  />
+             </svg>  
+             Buscar
+           </button>   
          </form> 
        </nav>
 
@@ -189,7 +192,7 @@ $resultCompativel = $fachada->atuadorGetCompativel($idItem);
          while ($row =  mysqli_fetch_array($resultCompativel,MYSQLI_ASSOC)) { #echo "Palavra  
            #echo $arrayResult['ID_Item'];
          ?>    
-             <form method="POST" action="TelaExibirAtuador.php" data-toggle="validator" role="form" align="start" >
+             <form method="POST" action="TelaExibirMicrocontrolador.php" data-toggle="validator" role="form" align="start" >
                <input type="hidden" name="ItemPesquisa" id="cod_processo" value="<?php echo $row['ID_Item']; ?>"/>
                <input type="hidden" name="ItemAnterior" id="cod_processo" value="<?php echo $arrayResult['ID_Item']; ?>"/>  
                  <button  type="submit" class="btn btn-outline-primary border-0 " target="_blank">  
@@ -234,7 +237,8 @@ $resultCompativel = $fachada->atuadorGetCompativel($idItem);
    <tbody>
      <tr class="table-primary">
        <td>
-        <textarea class="form-control" align="start" readonly="readonly" name="info_add" id="ID_Campo_Ind_Add" rows="15" cols="200" style="resize: none; width:100%;background-color:#0000; border-color:#0000; "  > <?php echo $arrayResult['infoAdicionais']; ?></textarea>
+        <textarea class="form-control" align="start" readonly="readonly" name="info_add" id="ID_Campo_Ind_Add" rows="15" cols="200" style="resize: none; width:100%;background-color:#0000; border-color:#0000; "  > <?php echo $arrayResult['infoAdicionais']; ?>
+        </textarea>
        </td>
      </tr>
    </tbody>
@@ -264,33 +268,24 @@ $resultCompativel = $fachada->atuadorGetCompativel($idItem);
  <!-- Cards referentes aos projetos sugeridos para cada componente ao componente 1-->
  <div>
  <div class="row" align="center">
-   <!-- Tamnho da imagem do projeto .../100px180/ style="width: 180px; height: 100px;-->
+   <?php 
+   #echo "ID_Item".$idItem;
+   while ($row =  mysqli_fetch_array($projetosRelacionados,MYSQLI_ASSOC)) { #echo 
+   ?> 
    <div class="card col-md-3 ml-3" style="width: 18rem;">
-     <img class="card-img-top" width="100" height="180" src="img\violao.jpg" alt="Card image cap">
+     <img class="card-img-top" width="100" height="180" src="<?php echo $row['img_projeto'];  ?>" alt="Card image cap">
      <div class="card-body">
-       <h5 class="card-title">Violão LED</h5>
-       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-       <a href="TelaExibirProjeto.php" class="btn btn-primary">Ver o projeto</a>
+       <h5 class="card-title"><?php echo $row['nome'];  ?></h5>
+       <?php $textoDescritivo = substr($row['metodologia'], 0,20);  ?>
+       <p class="card-text"><?php echo $textoDescritivo; ?></p>
+       
+      <form  class="" method="POST" action="TelaExibirProjeto.php" data-toggle="validator" role="form">
+        <input type="hidden" name="ItemPesquisa" value="<?php echo $row['ID_Projeto']; ?>">
+       <button type="submit" class="btn btn-primary">Ver o projeto</button>
+       </form>
      </div>
    </div>
-   <!-- Tamnho da imagem do projeto .../100px180/ style="width: 180px; height: 100px;-->
-   <div class="card col-md-3 ml-3" style="width: 18rem;">
-     <img class="card-img-top" width="100" height="180" src="img\violao.jpg" alt="Card image cap">
-     <div class="card-body">
-       <h5 class="card-title">Violão LED</h5>
-       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-       <a href="TelaExibirProjeto.php" class="btn btn-primary">Ver o projeto</a>
-     </div>
-   </div>
-   <!-- Tamnho da imagem do projeto .../100px180/ style="width: 180px; height: 100px;-->
-   <div class="card col-md-3 ml-3" style="width: 18rem;">
-     <img class="card-img-top" width="100" height="180" src="img\violao.jpg" alt="Card image cap">
-     <div class="card-body">
-       <h5 class="card-title">Violão LED</h5>
-       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-       <a href="TelaExibirProjeto.php" class="btn btn-primary">Ver o projeto</a>
-     </div>
-   </div>
+   <?php } mysqli_free_result($projetosRelacionados); ?> 
  </div>
  </div>
        <!-- <button type="button" class="btn btn-primary">Primary</button> -->

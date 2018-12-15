@@ -12,7 +12,9 @@
 
     include_once("conexao/Fachada.class.php");
     include_once("conexao/UsuarioVO.class.php");
+   
 	session_start();
+
 	$_SESSION['logado'] = false;
 
 

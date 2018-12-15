@@ -142,7 +142,7 @@ function editarAtuador($Atuador, $conn)
 	   $id_user = $id_user->fetch_row();
 
 
-	   $cadastroItemQuery = "UPDATE `cadastro_item` SET `dataCadastro` = NOW() WHERE `cadastro_item`.`ID_Item_FK` = '$ID_item'";
+	   $cadastroItemQuery = "UPDATE `cadastro_item` SET `dataCadastro` = NOW(), `ID_Usuario_FK`='$id_user[0]' WHERE `cadastro_item`.`ID_Item_FK` = '$ID_item'";
  	   $resultadoCadastroItem = mysqli_query($conex, $cadastroItemQuery)   or die ("O sistema não foi capaz de executar a consulta na tabela cadastro_item -". mysqli_error($conex));
  	 
  	    #recupera ID_Atuador

@@ -4,7 +4,134 @@ include_once "UsuarioVO.class.php";
 
 
 class MicrocontroladorDAO{
+	
 
+	function inserirFavorito($idItem,$Usuario,$idProjeto)
+	{
+	  $conn = New Conexao;
+	  $conex = $conn->{'conexaoBD'}();
+	  $id_user_query = "SELECT ID_usuario FROM usuario where nomeUsuario = '$Usuario'";
+	  $id_user = mysqli_query($conex, $id_user_query);
+	  $id_user = $id_user->fetch_row();
+	  echo "ID User".$id_user[0];
+
+	  if($idItem != null){	
+	   	$resultadoItem = "INSERT INTO `itens_favoritos` (`ID_Favoritos`, `ID_Usuario_FK`,`ID_Item_FK`) VALUES (NULL, '$id_user[0]','$idItem')";
+		$msg_resultadoItem = mysqli_query($conex, $resultadoItem)  or die ("O sistema não foi capaz de executar a query. Tabela itens_favoritos: ". mysqli_error($conex));
+	  }else if($idProjeto != null)
+	  {
+		$resultadoItem = "INSERT INTO `projetos_favoritos` (`ID_Favoritos`, `ID_Usuario_FK`,`ID_Projeto_FK`) VALUES (NULL, '$id_user[0]','$idProjeto')";
+		$msg_resultadoItem = mysqli_query($conex, $resultadoItem)  or die ("O sistema não foi capaz de executar a query. Tabela itens_favoritos: ". mysqli_error($conex));
+
+	  }
+	   if(!$msg_resultadoItem)
+	   {
+	   	return -2;
+	   }else
+	   {
+	   	return  0;
+	   }
+	}
+	function exibirFavoritoPorUsuario($nomeUser){
+
+	  		
+	  		$resultado = "SELECT U.*, I.*, IFA.*
+			FROM usuario                      			AS U 
+			INNER JOIN itens_favoritos  		AS IFA ON IFA.ID_Usuario_FK = U.ID_Usuario 
+			INNER JOIN item                   		AS I  ON I.ID_Item = IFA.ID_Item_FK 
+			WHERE U.nomeUsuario='$nomeUser'";
+	  	  		
+	  	  		#echo "Consulta SQL: ".$resultado;
+
+	  	  		$conn = New Conexao;
+
+	  	  	   	$busca_resultado = mysqli_query($conn->{'conexaoBD'}(), $resultado);
+
+	  	  	   	#$row = $busca_resultado->fetch_row();
+	  	  	   	/* associative array */
+	  	  	   	#$row = $busca_resultado->fetch_array(MYSQLI_ASSOC);
+
+	  	  	   #	echo $row[0];
+
+	  	  	   	if (!empty($busca_resultado)) {
+	  	  	   	    #echo "IF 1: ".$row[0]['nomeItem'];
+	  	  	   	    return $busca_resultado;
+	  	  	   	   
+	  	  	   	} else {
+	  	  	   		#echo 0;
+	  	  	   		#echo "IF 2: ".$row[0]['nomeItem'];
+	  	  	 	    return 0;
+	  	  	   	}
+	  	  	}
+	function verificarExistenciaFavorito($idItem,$idUser,$idProjeto)
+	{
+	  $conn = New Conexao;
+	  $conex = $conn->{'conexaoBD'}();
+	 
+	  
+	  if($idItem != null){	
+	   	$resultadoItem = "SELECT COUNT(*) FROM `itens_favoritos` WHERE `ID_Item_FK`= '$idItem' and `ID_Usuario_FK`='$idUser'";
+		$msg_resultadoItem = mysqli_query($conex, $resultadoItem)  or die ("O sistema não foi capaz de executar a query. Tabela itens_favoritos: ". mysqli_error($conex));
+	  }else if($idProjeto != null)
+	  {
+		$resultadoItem = "SELECT COUNT(*) FROM `projetos_favoritos` WHERE `ID_Projeto_FK` = '$idProjeto' and `ID_Usuario_FK`='$idUser'";
+		$msg_resultadoItem = mysqli_query($conex, $resultadoItem)  or die ("O sistema não foi capaz de executar a query. Tabela projetos_favoritos: ". mysqli_error($conex));
+	  }
+	  	
+	   
+	   	$row = $msg_resultadoItem->fetch_row();
+	   #	echo  "retorno da verificação: ".$row[0];
+	   	echo "Retorno na verificação: ".$row[0];
+	   	if ($row[0] > 0) {
+	   		echo "De novo...".$row[0];
+	   	    return -1;
+	   }else
+	   {
+	   	return  $this->inserirFavorito($idItem,$idUser,$idProjeto);
+	   }
+	}
+	function exibirFavoritos($idUser,$tipo)
+	{
+	  $conex = $conn->conexaoBD();
+	  
+	  if($tipo != "item"){	
+	   	$resultadoItem = "SELECT * FROM `itens_favoritos` WHERE `ID_Item_FK` = '$idItem'";
+		$msg_resultadoItem = mysqli_query($conex, $resultadoItem)  or die ("O sistema não foi capaz de executar a query. Tabela itens_favoritos: ". mysqli_error($conex));
+	  }else if($idProjeto != null)
+	  {
+		$resultadoItem = "SELECT * FROM `projetos_favoritos` WHERE `ID_Projeto_FK` = '$idItem'";
+		$msg_resultadoItem = mysqli_query($conex, $resultadoItem)  or die ("O sistema não foi capaz de executar a query. Tabela projetos_favoritos: ". mysqli_error($conex));
+	  }
+	   if(!$msg_resultadoItem)
+	   {
+	   	return -2;
+	   }else
+	   {
+	   	return  $msg_resultadoItem;
+	   }
+	}
+	function excluirFavorito($idItem,$tipo)
+	{
+	   $conn = New Conexao;
+	  $conex = $conn->{'conexaoBD'}();;
+	  $msg_resultadoItem ='';
+	  if($tipo == 1){	
+	   	$resultadoItem = "DELETE FROM `itens_favoritos` WHERE `ID_Item_FK` = '$idItem'";
+		$msg_resultadoItem = mysqli_query($conex, $resultadoItem)  or die ("O sistema não foi capaz de executar a query. Tabela itens_favoritos: ". mysqli_error($conex));
+	  }else if($tipo == 2)
+	  {
+		$resultadoItem = "DELETE FROM `projetos_favoritos` WHERE `ID_Projeto_FK`='$idItem'";
+		$msg_resultadoItem = mysqli_query($conex, $resultadoItem)  or die ("O sistema não foi capaz de executar a query. Tabela itens_favoritos: ". mysqli_error($conex));
+	  }
+	   if(!$msg_resultadoItem)
+	   {
+	   	return -2;
+	   }else
+	   {
+	   	return  -1;
+	   }
+	}
+   	
    	function inserirMicro($micro, $conn)
    	{
 	 #Informações gerais
@@ -65,6 +192,8 @@ class MicrocontroladorDAO{
 	   $id_item_query = "SELECT ID_Item FROM item where nomeItem = '$nomeItem'";
 	   $id_item = mysqli_query($conex, $id_item_query);
 	   $id_item = $id_item->fetch_row();
+
+	   echo "ID Usuario atual:".$id_user[0];
 
 	   $cadastroItemQuery = "INSERT INTO `cadastro_item` (`ID_Cadastro`, `ID_Usuario_FK`, `ID_Item_FK`, `dataCadastro`) VALUES (NULL, '$id_user[0]', '$id_item[0]', NOW())";
  	   $resultadoCadastroItem = mysqli_query($conex, $cadastroItemQuery) or die ("O sistema não foi capaz de executar a query. Tabela cadastro_item". mysqli_error($conex)); 
@@ -445,10 +574,9 @@ function excluirMicro($microID)
 	 	    return 1;
 	   	}
 	}
-	  	function exibirItem($itemAtual){
-
-		
-			$resultado = "SELECT * FROM item WHERE nomeItem LIKE '%$itemAtual%'";
+	function exibirItemPorID($itemAtual){
+	
+			$resultado = "SELECT * FROM item WHERE item.ID_Item = '$itemAtual'";
 	  		
 	  		#echo "Consulta SQL: ".$resultado;
 
@@ -458,20 +586,59 @@ function excluirMicro($microID)
 
 	  	   	#$row = $busca_resultado->fetch_row();
 	  	   	/* associative array */
-	  	   	#$row = $busca_resultado->fetch_array(MYSQLI_ASSOC);
-
+	  	   	$row = $busca_resultado->fetch_array(MYSQLI_BOTH);
 	  	   #	echo $row[0];
 
-	  	   	if (!empty($busca_resultado)) {
-	  	   	    #echo "IF 1: ".$row[0]['nomeItem'];
-	  	   	    return $busca_resultado;
+	  	   	if ($row[0] > 0) {
+	  	   	    # echo "Endereco IF 1: ".$row['img_componente'];
+	  	   	    return $row;
 	  	   	   
 	  	   	} else {
 	  	   		#echo 0;
-	  	   		#echo "IF 2: ".$row[0]['nomeItem'];
+	  	   		#echo "IF 2: ".$row['nomeItem'];
 	  	 	    return 0;
 	  	   	}
 	  	}
+	  	function exibirItem($itemAtual){
+
+			$resultado = "SELECT * FROM item WHERE nomeItem LIKE '%$itemAtual%'";
+	  		
+	  		$conn = New Conexao;
+
+	  	   	$busca_resultado = mysqli_query($conn->{'conexaoBD'}(), $resultado);
+
+	  	   	#$row = $busca_resultado->fetch_row();
+	  	   	/* associative array */
+	  	   	#$row = $busca_resultado->fetch_array(MYSQLI_ASSOC);
+	  	   #	echo $row[0];
+
+	  	   	if (!empty($busca_resultado)) {
+	  	   	    return $busca_resultado;
+	  	   	   
+	  	   	} else {
+	  	 	    return 0;
+	  	   	}
+	  	}
+	  	  	function exibirItemPorPalavraChave($itemAtual){
+
+	  			$resultado = "SELECT * FROM item WHERE palavraChave LIKE '%$itemAtual%'";
+	  	  		
+	  	  		$conn = New Conexao;
+
+	  	  	   	$busca_resultado = mysqli_query($conn->{'conexaoBD'}(), $resultado);
+
+	  	  	   	#$row = $busca_resultado->fetch_row();
+	  	  	   	/* associative array */
+	  	  	   	#$row = $busca_resultado->fetch_array(MYSQLI_ASSOC);
+	  	  	   #	echo $row[0];
+
+	  	  	   	if (!empty($busca_resultado)) {
+	  	  	   	    return $busca_resultado;
+	  	  	   	   
+	  	  	   	} else {
+	  	  	 	    return 0;
+	  	  	   	}
+	  	  	}
 	  	function exibirMicroPorCategoria($nomeUser){
 
 		
@@ -527,6 +694,27 @@ function excluirMicro($microID)
 	  	 	    return 0;
 	  	   	}
 	  	}
+	  	function getItenPorCategoria($itemAtual, $categoria){
+
+			$resultado = "SELECT * FROM item 
+			 	 		  WHERE 
+			   	 		  nomeItem LIKE '%$itemAtual%' and categoria = '$categoria' ";
+	  		$conn = New Conexao;
+
+	  	   	$busca_resultado = mysqli_query($conn->{'conexaoBD'}(), $resultado);
+
+	  	   	#$row = $busca_resultado->fetch_row();
+	  	   	/* associative array */
+	  	   	if (!empty($busca_resultado)) {
+	  	   	    #echo "IF 1: ".$row[0]['nomeItem'];
+	  	   	    return $busca_resultado;
+	  	   	   
+	  	   	} else {
+	  	   		#echo 0;
+	  	   		#echo "IF 2: ".$row[0]['nomeItem'];
+	  	 	    return 0;
+	  	   	}
+	  	}  	
 	    
   	function exibirMicro($itemAtual){
 

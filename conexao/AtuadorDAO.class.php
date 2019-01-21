@@ -1,8 +1,6 @@
 <?php
 include_once "Conexao.class.php";
 include_once "AtuadorVO.class.php";
-
-
 class AtuadorDAO{
 
    	function inserirAtuador($Atuador, $conn)
@@ -438,6 +436,4 @@ function excluirAtuador($AtuadorID)
 	  	   	}
   	}
 }
-
-?>
-   
+?>   

@@ -7,37 +7,34 @@
           // onclick="Mudarestado('ID_DIV')"
     }
 </script>
-
 <?php
+session_start();
+include_once("conexao/Fachada.class.php");
+include_once("conexao/UsuarioVO.class.php");
 
-    include_once("conexao/Fachada.class.php");
-    include_once("conexao/UsuarioVO.class.php");
-   
-	session_start();
-
-	$_SESSION['logado'] = false;
+$_SESSION['logado'] = false;
 
 
-	$nome = $_POST['nomeUsuario'];
-	$senha = $_POST['senha'];
+$nome = $_POST['nomeUsuario'];
+$senha = $_POST['senha'];
 
-	$imprimir = '';
-	$tipoAlert = '';
-	$labelAlerta = '';
-	$labelLink = '';
-	$Link = 'TelaCadastro.html';
+$imprimir = '';
+$tipoAlert = '';
+$labelAlerta = '';
+$labelLink = '';
+$Link = 'TelaCadastro.html';
 
-	$usuario = new UsuarioVO();
+$usuario = new UsuarioVO();
 
-	$usuario->nome = $nome;
-	$usuario->senha = $senha;
+$usuario->nome = $nome;
+$usuario->senha = $senha;
 
-	$fachada = new Fachada();
-
-	$result = $fachada->logarUsuario($usuario);
+$fachada = new Fachada();
+#echo "Entrou no controle Login";
+$result = $fachada->logarUsuario($usuario);
 	#echo "Resultado: ".$result;
 
-	if ($result == 0) {
+if ($result == 0) {
 		$imprimir = "Usuário não cadastrado!";
 		$tipoAlert = "alert alert-warning alert-dismissible fade show";
 		$labelAlerta = 'Atenção! ';

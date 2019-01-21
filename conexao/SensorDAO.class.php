@@ -1,8 +1,6 @@
 <?php
 include_once "Conexao.class.php";
 include_once "SensorVO.class.php";
-
-
 class SensorDAO{
 
    	function inserirSensor($Sensor, $conn)
@@ -438,6 +436,4 @@ function excluirSensor($SensorID)
 	  	   	}
   	}
 }
-
 ?>
-   

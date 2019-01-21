@@ -1,8 +1,6 @@
 <?php
 include_once "Conexao.class.php";
 include_once "ProjetoVO.class.php";
-
-
 class ProjetoDAO{
 
    	function inserirProjeto($Projeto, $conn)
@@ -576,6 +574,4 @@ function excluirProjeto($ProjetoID)
   	  	  	  	   	}
   	  	  	}
 }
-
 ?>
-   

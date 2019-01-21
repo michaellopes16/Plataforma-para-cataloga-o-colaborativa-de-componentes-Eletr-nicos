@@ -60,9 +60,4 @@ if(isset($_POST["ID_Usuario"])){
     	echo "Avaliou está vazio...";
     }       
 }
-
-
- ?>
-      
-        
-       
+?>      

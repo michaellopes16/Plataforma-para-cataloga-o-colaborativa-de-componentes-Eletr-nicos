@@ -1,9 +1,8 @@
 <?php 
-
+session_start();
 include_once("conexao/Fachada.class.php");
 include_once("conexao/MicrocontroladorVO.class.php");
 
-session_start();
 if(isset($_POST["ItemPesquisa"])){
 
   $idItem = $_POST["ItemPesquisa"];

@@ -1,8 +1,6 @@
 <?php
 include_once "Conexao.class.php";
 include_once "ShieldVO.class.php";
-
-
 class ShieldDAO{
 
    	function inserirShield($Shield, $conn)
@@ -270,7 +268,7 @@ function excluirShield($ShieldID)
 
 	function verificarExistenciaShieldByID($Shield){
 
-		echo "ID do Shield: ".$Shield->ID_Item;
+		#echo "ID do Shield: ".$Shield->ID_Item;
 		$resultado = "SELECT COUNT(*) FROM item WHERE item.ID_Item ='$Shield->ID_Item'";
 		#stristr($resultado, 'nome');
 
@@ -298,7 +296,7 @@ function excluirShield($ShieldID)
 			$conn = New Conexao;
 
 	  	   	$busca_resultado = mysqli_query($conn->{'conexaoBD'}(), $resultado);
-	  	   	echo "Count Busca result no shield: ".count((array)$busca_resultado);
+	  	   	#echo "Count Busca result no shield: ".count((array)$busca_resultado);
 
 	  	    if (!empty($busca_resultado)) {
 	  	      #echo "IF 1: ".$row[0]['nomeItem'];
@@ -438,6 +436,4 @@ function excluirShield($ShieldID)
 	  	   	}
   	}
 }
-
 ?>
-   

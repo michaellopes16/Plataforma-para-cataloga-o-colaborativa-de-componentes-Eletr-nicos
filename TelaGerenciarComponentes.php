@@ -1,9 +1,7 @@
 <?php session_start();
-#echo "Nome Usuario:". $_SESSION['nomeUser']. "Logado?".$_SESSION['logado']; 
-
-if($_SESSION['logado'] == 0 || isset($_SESSION['logado']))
+if($_SESSION['logado'] == 0 || !isset($_SESSION['logado']))
 {
-  #header("Location: TelaLogin.php");
+  header("Location: TelaLogin.php");
 }
 ?>
 <!doctype html>

@@ -26,7 +26,6 @@ $_SESSION["itemAtual"] = $idItem;
 $ID_Micro_Compativeis = '';
 
 $resultCompativel = $fachada->SensorGetCompativel($idItem);
-
 ?>
 <!doctype html>
 <html lang="pt-br">

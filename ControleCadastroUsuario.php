@@ -1,8 +1,6 @@
-
 <?php
-
-    include_once("conexao/Fachada.class.php");
-    include_once("conexao/UsuarioVO.class.php");
+include_once("conexao/Fachada.class.php");
+include_once("conexao/UsuarioVO.class.php");
 
 	$nome = $_POST['nomeUsuario'];
 	$primeiroNome = $_POST['primeiroNome'];

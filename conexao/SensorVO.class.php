@@ -1,5 +1,4 @@
 <?php
-
 class SensorVO
 {
 	#Informações gerais item
@@ -20,8 +19,6 @@ class SensorVO
 	public $tensaoOperacao;
 	public $compativel;
 	public $tensaoSaida;
-	public $funsao;
-	
-	
+	public $funsao;	
 }
 ?>

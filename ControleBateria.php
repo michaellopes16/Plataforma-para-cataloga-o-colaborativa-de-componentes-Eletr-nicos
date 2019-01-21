@@ -1,9 +1,8 @@
-
 <?php
-
-    include_once("conexao/Fachada.class.php");
-    include_once("conexao/BateriaVO.class.php");
- 	session_start();
+session_start();
+include_once("conexao/Fachada.class.php");
+include_once("conexao/BateriaVO.class.php");
+ 	
  	#Informações gerais
 
 	if(isset($_FILES['caminho_img_componente'])) { 

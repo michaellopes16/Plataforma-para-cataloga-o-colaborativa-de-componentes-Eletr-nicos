@@ -1,9 +1,8 @@
-
 <?php
-
-    include_once("conexao/Fachada.class.php");
-    include_once("conexao/AtuadorVO.class.php");
- 	session_start();
+session_start();
+include_once("conexao/Fachada.class.php");
+include_once("conexao/AtuadorVO.class.php");
+ 	
  	#Informações gerais
 
 if(isset($_FILES['caminho_img_componente'])) { 
@@ -35,9 +34,6 @@ if(isset($_FILES['caminho_img_componente'])) {
 	$compativel	  	     	 = $_SESSION['ID_Item'];
 	$tensaoOperacao			   = $_POST['tensao_nom']; 
 	$infoGerais		     	   = $_POST['info_add'];
-
-  
-
 	#Informações Elétricas se Recaregável 
 
 	$imprimir = '';

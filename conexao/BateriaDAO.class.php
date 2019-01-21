@@ -1,8 +1,6 @@
 <?php
 include_once "Conexao.class.php";
 include_once "BateriaVO.class.php";
-
-
 class BateriaDAO{
 
    	function inserirBateria($bateria, $conn)
@@ -496,6 +494,4 @@ function excluirBateria($bateriaID)
 	  	   	}
   	}
 }
-
 ?>
-   

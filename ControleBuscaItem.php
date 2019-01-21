@@ -1,8 +1,7 @@
 <?php session_start();
 include_once("conexao/Fachada.class.php");
-#include_once("TelaInserirShield.php");
 include_once("conexao/MicrocontroladorVO.class.php");
- $idItem ='';
+$idItem ='';
 $fachada = new Fachada;
 $retorno = '';
 
@@ -161,9 +160,7 @@ if(isset($_POST["ID_TirarDaLista"]))
                            </svg> 
                          </a>
                          </div>
-                       </li>';
-                        
+                       </li>';                   
       endforeach;  
 }
-
 ?>

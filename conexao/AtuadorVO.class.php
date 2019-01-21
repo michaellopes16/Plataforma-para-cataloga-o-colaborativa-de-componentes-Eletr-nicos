@@ -1,5 +1,4 @@
 <?php
-
 class AtuadorVO
 {
 	#Informações gerais item
@@ -21,7 +20,6 @@ class AtuadorVO
 	public $cor;
 	public $controlador;
 	public $compativel;
-	public $modo_consumo;
-	
+	public $modo_consumo;	
 }
 ?>

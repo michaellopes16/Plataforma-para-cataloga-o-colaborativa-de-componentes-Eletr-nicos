@@ -1,8 +1,6 @@
 <?php session_start();
 include_once("conexao/Fachada.class.php");
 
-
-
 $_SESSION["ID_Item"]= array();
 $_SESSION["Nome_Item"]= array();
 
@@ -14,7 +12,6 @@ if(isset($_POST["ItemPesquisa"])){
   $_SESSION["itemAtual"] = $idItem; 
   #echo "Item pesquisa no Tela Exibir: ".$idItem."</br>";
 } 
-
 
 if( isset($_SESSION["itemAtual"]))
 {
@@ -292,8 +289,6 @@ $resultCompativel = $fachada->projetoGetCompativel($idItem);
                    
                     var id = $(this).attr('id');
                     var item = id.split(':');
-
-
                     $.ajax({
                         url : 'ControleBuscaProjeto.php',
                         type: 'POST',

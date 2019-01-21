@@ -1,5 +1,4 @@
 <?php
-
 class MicrocontroladorVO
 {
 
@@ -40,7 +39,4 @@ class MicrocontroladorVO
 	public $sensores;
 	public $infoGerais;
 }
-
-
-
 ?>

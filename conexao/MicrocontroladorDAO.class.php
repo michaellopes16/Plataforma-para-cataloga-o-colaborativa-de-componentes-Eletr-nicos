@@ -1,11 +1,7 @@
 <?php
 include_once "Conexao.class.php";
 include_once "UsuarioVO.class.php";
-
-
 class MicrocontroladorDAO{
-	
-
 	function inserirFavorito($idItem,$Usuario,$idProjeto)
 	{
 	  $conn = New Conexao;
@@ -754,6 +750,4 @@ function excluirMicro($microID)
 	  	   	}
   	}
 }
-
 ?>
-   

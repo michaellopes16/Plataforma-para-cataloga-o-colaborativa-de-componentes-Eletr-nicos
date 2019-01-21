@@ -1,8 +1,7 @@
 <?php session_start();
 include_once("conexao/Fachada.class.php");
 
-$_SESSION["ItemAnterior"] = '';
-
+$_SESSION["ItemAnterior"] = '';#acho que não precisa disso
 
 if(isset($_SESSION["ItemAnterior"])){
 

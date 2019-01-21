@@ -1,7 +1,5 @@
 <?php session_start();
 include_once("conexao/Fachada.class.php");
-
-
 $_SESSION["ID_Item"]= array();
 $_SESSION["Nome_Item"]= array();
 $_SESSION['Excluir'] = '';

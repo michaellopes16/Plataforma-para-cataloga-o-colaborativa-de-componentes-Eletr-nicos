@@ -49,7 +49,4 @@ if(isset($_POST["TextComentario"])){
 
   echo $resul;
 }
- ?>
-      
-        
-       
+?>     

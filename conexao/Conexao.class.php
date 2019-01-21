@@ -1,11 +1,5 @@
-
 <?php
-/**
- * 
- */
 class Conexao{
-
-
  function conexaoBD(){
 
 		$servidor  = "localhost";
@@ -21,19 +15,12 @@ class Conexao{
 			#echo "Conexao OK!";
 			return $conn;
 		}
-
-		#if(!$conn){
-			#die("Não foi possível convectar ao banco!" . mysql_error());
-		#}
-		#retun $conn;
 	}
 
-		function desconect() {
+	function desconect() {
 		if ($conn) {
 			mysqli_close($conn);
 		}
 	}
-
 }
-
 ?>

@@ -93,6 +93,4 @@ if($arrayResult == 1){
          echo $resul;
 	 }
 }
-      
-
- ?>
+?>

@@ -109,20 +109,18 @@
          <div class="form-row" align="start">
 
            <div class="form-group col-md-5" align="start">
-             <img src="#" id="ID_IMG_Componente"  class="img mt- border border-primary rounded" width="130" height="80">
+             <img src="img/microIcon.png" id="ID_IMG_Componente"  class="img mt- border border-primary rounded" width="130" height="80">
               <input type="hidden" name="MAX_FILE_SIZE" value="99999999"/>
              <input type="file" name="imgComponente" class="form-control-file" id="ID_Enviar_Foto" required>
              <label class="custom-file-label" for="ID_Enviar_Foto">Imagem do Componente</label>
            </div>  
            <div class="form-group col-md-5" align="start">
-             <img src="#" id="ID_IMG_Legenda"  class="img mt- border border-primary  rounded" width="130" height="80">
+             <img src="img/microIcon.png" id="ID_IMG_Legenda"  class="img mt- border border-primary  rounded" width="130" height="80">
              <input type="hidden" name="MAX_FILE_SIZE" value="99999999"/>
              <input type="file" name="imgLegenda" class="form-control-file" id="ID_Enviar_Pinagem" required>
              <label class="custom-file-label" for="ID_Enviar_Pinagem">Legenda de Sinais (pinagem)</label>
            </div>  
            <div class="form-group col-md-2 mt-5" align="end">
-              <!-- Adicionar imagem no frames e salva-las-->
-             <a href="#" class="btn btn-outline-primary mr-2">Carregar Imagens</a>
            </div>
 
          </div>

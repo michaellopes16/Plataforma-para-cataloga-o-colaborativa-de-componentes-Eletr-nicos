@@ -2,9 +2,6 @@
 session_start();
 # se não tiver usuário com o mesmo email, inserir informações do 
 # Facebook
-
-
-
 # $result = 1 caso já exista. 2 se der erro, e outro caso dê certo o cadastro
 #============================================
 
@@ -45,10 +42,10 @@ try {
 }
 
 if (! isset($accessToken)) {
-	$url_login = 'http://localhost/mlb/loginFacebook.php';
+	$url_login = 'http://localhost/mlb/loginFacebook.php';#mudar aqui
 	$loginUrl = $helper->getLoginUrl($url_login, $permissions);
 }else{
-	$url_login = 'http://localhost/mlb/loginFacebook.php';
+	$url_login = 'http://localhost/mlb/loginFacebook.php';#mudar aqui
 	$loginUrl = $helper->getLoginUrl($url_login, $permissions);
 	//UsuÃ¡rio ja autenticado
 	if(isset($_SESSION['face_access_token'])){
@@ -78,7 +75,7 @@ if (! isset($accessToken)) {
 			#echo "Email usuario: ".$usuario->email;
 
 			$result = $fachada->inserirUsuario($usuario);
-			header("Location: TelaGerenciarComponentes.php");	
+			header("Location: TelaGerenciarComponentes.php");#acho que tem que tirar isso od IF	
 		}
 					
 		
@@ -90,6 +87,4 @@ if (! isset($accessToken)) {
 	exit;
 	}
 }
-
- ?>
-
+?>

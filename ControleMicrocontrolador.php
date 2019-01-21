@@ -1,9 +1,8 @@
-
 <?php
-
-    include_once("conexao/Fachada.class.php");
-    include_once("conexao/MicrocontroladorVO.class.php");
- 	session_start();
+session_start();
+include_once("conexao/Fachada.class.php");
+include_once("conexao/MicrocontroladorVO.class.php");
+ 	
  	#Informações gerais
 
 	if(isset($_FILES['imgComponente'])) { 

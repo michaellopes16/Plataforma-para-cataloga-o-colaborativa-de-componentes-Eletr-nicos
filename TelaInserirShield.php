@@ -1,11 +1,8 @@
 <?php session_start();
-
 $ID_Micro_Compativeis = '';
 $_SESSION["ID_Item"]= array();
 $_SESSION["Nome_Item"]= array();
 $_SESSION['Excluir'] = '';
-
-
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -111,7 +108,7 @@ $_SESSION['Excluir'] = '';
 
            <div class="form-group col-md-5" align="start">
              
-             <img src="img/ItemTeste.png" id="ID_IMG_Componente"  class="img mt- border border-primary rounded" width="130" height="80">
+             <img src="img/shieldIcon.png" id="ID_IMG_Componente"  class="img mt- border border-primary rounded" width="130" height="80">
              <input type="file" name="caminho_img_componente" class="form-control-file" id="ID_Enviar_Foto" required>
              <label class="custom-file-label" for="ID_Enviar_Foto">Imagem do Componente</label>
            </div>  

@@ -410,7 +410,5 @@ class Fachada{
 	return $resultado->excluirFavorito($itemAtual,$tipo);
 	#$cadastro ->{'verificarUsuario'}();
 	}
-
-
 }
 ?>

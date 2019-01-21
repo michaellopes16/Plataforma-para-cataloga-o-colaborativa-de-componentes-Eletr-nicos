@@ -1,5 +1,4 @@
 <?php
-
 class BateriaVO
 {
 
@@ -33,10 +32,6 @@ class BateriaVO
 	public $quimica;
 	public $tempo_medio;
 	public $resistor_descarga;
-	public $voltagem_minima;
-	
+	public $voltagem_minima;	
 }
-
-
-
 ?>

@@ -1,9 +1,7 @@
 <?php 
-
 session_start();
 include_once("conexao/Fachada.class.php");
 include_once("conexao/MicrocontroladorVO.class.php");
-
 
 $_SESSION["adicionou"] = false;
 $fachada = new Fachada;
@@ -85,7 +83,6 @@ if($_SESSION['tipoBusca'] == 1){
 }
 
 $linkCategoria = '#';
-
 ?>
 <!doctype html>
 <html lang="pt-br">

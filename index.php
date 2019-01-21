@@ -1,5 +1,7 @@
 <?php session_start();
+include_once("conexao/Fachada.class.php");
 $_SESSION['tipoBusca'] = 1;
+
 if(isset($_SESSION['logado']) && empty($_SESSION['logado'])){
   $_SESSION["logado"] = 0;
 }
@@ -10,17 +12,29 @@ if(isset($_SESSION['logado']) && empty($_SESSION['logado'])){
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/compiler/bootstrap.css">
     <link rel="stylesheet" href="bootstrap/compiler/style.css">
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    
+    <script language="JavaScript">
+      function Mudarestado(el) {
+        var display = document.getElementById(el).style.display;
+        if(display == "none"){
+            document.getElementById(el).style.display = 'block';
+        }     
+    }
+    function Mudarestado2(el)
+    {
+       var display = document.getElementById(el).style.display;
+        if(display == "block"){
+            document.getElementById(el).style.display = 'none';
+        }  
+    }
+    </script>
     <title>Eletronics Component Catalog</title>
   </head>
   <body>
-     
-
       <?php 
         if(isset($_SESSION['logado']) && !empty($_SESSION['logado'])){
           if($_SESSION["logado"] == 1){ ?>
@@ -60,7 +74,7 @@ if(isset($_SESSION['logado']) && empty($_SESSION['logado'])){
             </div>      
       <?php }?>
       <div class="container mt-5" align="center">
-        <img src="img/logo1.png" class="img" align="center">
+        <img src="img/logo3.png" class="img" align="center">
       </div>
       <!-- -->
       <div class="d-flex justify-content-center" align="center">
@@ -87,6 +101,63 @@ if(isset($_SESSION['logado']) && empty($_SESSION['logado'])){
             </form>
           </div>
         </div>
+<div class="d-flex justify-content-center" id="divBotoes">
+    <button id="1:microcontrolador" class="btn btn-outline-primary mr-2" style="width: 180px;height: 90px;" onclick="Mudarestado('divListarItens')"  ondblclick="Mudarestado2('divListarItens')">
+      <img src="img/microIcon.png" class="mb-2" style="width: 100px;height: 80px;">
+    </button>
+
+    <button id="2:bateria" class="btn btn-outline-primary mr-2" style="width: 180px;height: 90px;" onclick="Mudarestado('divListarItens')" ondblclick="Mudarestado2('divListarItens')">
+      <img src="img/bateriaIcon.png" class="mb-2" style="width: 100px;height: 80px;">
+    </button>
+
+    <button id="3:shield" class="btn btn-outline-primary mr-2" style="width: 180px;height: 90px;" onclick="Mudarestado('divListarItens')"ondblclick="Mudarestado2('divListarItens')">
+      <img src="img/shieldIcon.png" class="mb-2" style="width: 100px;height: 80px;">
+    </button>
+
+    <button id="4:atuador" class="btn btn-outline-primary mr-2" style="width: 180px;height: 90px;" onclick="Mudarestado('divListarItens')" ondblclick="Mudarestado2('divListarItens')">
+      <img src="img/atuadorIcon.png" class="mb-2" style="width: 100px;height: 80px;">
+    </button>
+
+    <button id="5:sensor" class="btn btn-outline-primary mr-2" style="width: 180px;height: 90px;" onclick="Mudarestado('divListarItens')" ondblclick="Mudarestado2('divListarItens')">
+      <img src="img/sensorIcon.png" class="mb-2" style="width: 100px;height: 80px;">
+    </button>
+    
+    <button id="6:projeto" class="btn btn-outline-primary mr-2" style="width: 180px;height: 90px;" onclick="Mudarestado('divListarItens')" ondblclick="Mudarestado2('divListarItens')">
+      <img src="img/projetoIcon.png" class="mb-2" style="width: 100px;height: 80px;">
+    </button>
+    <script>
+      $("body").on('click', '#divBotoes button', function(){
+           
+        var id = $(this).attr('id');
+        var item = id.split(':');
+        $.ajax({
+          url : 'ControleListageral.php',
+          type: 'POST',
+          data:{categoria:item[1]},
+             
+          success: function(retorno)
+          {
+            if(retorno == -1)
+            {
+              alert("Item já adicionado!");
+            }else{
+              $("#divListarItens").html(retorno);
+            } 
+          }, error:function()
+          {
+              $("#divListarItens").html("Houve um erro ao adicionar!");
+          }
+          });
+        });                      
+        </script>
+</div>
+<!--   ====================Listagem geral ===================   -->
+ <h4 class="mt-5 mb-4 ml-3 border border-primary border-top-0 border-right-0 rounded text-primary" id="list-item-2" align="start"></h4> <!-- Cards referentes aos projetos sugeridos para cada componente ao componente 1-->
+      <?php 
+      
+       ?>
+      <div id="divListarItens" style="display: none;">
+      </div>
 
        <div class="container-fluid  d-flex align-items-center flex-column bd-highlight mb-3 mt-5" style="height: 120px;"></div>
        <div class="container-fluid  d-flex align-items-center flex-column bd-highlight mb-3 mt-5"></div>
@@ -108,7 +179,8 @@ if(isset($_SESSION['logado']) && empty($_SESSION['logado'])){
                 <div class="modal-body">
                   <p>
                     <br /> <b>Desenvolvido por:</b> Michael Lopes Bastos {mlb@cin.ufpe.br} <br />
-                           <b>Supervisionado por:</b> Giordano Ribeiro Eulalio Cabral {grec@cin.ufpe.br}<br />
+                           <b>Supervisionado por:</b> Giordano Ribeiro Eulalio Cabral {grec@cin.ufpe.br}<br />  e 
+                           Felipe Calegário <br/>
                            Centro de Informática(CIn) - Universidade Federal de Pernambuco (UFPE)
                   </p>
                 </div>
@@ -135,7 +207,6 @@ if(isset($_SESSION['logado']) && empty($_SESSION['logado'])){
               </div>
             </div>
           </div>
-
      <!-- <button type="button" class="btn btn-primary">Primary</button> -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

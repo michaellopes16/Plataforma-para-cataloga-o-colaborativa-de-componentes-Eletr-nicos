@@ -1,5 +1,4 @@
 <?php
-
 class ProjetoVO
 {
 	#Informações gerais item
@@ -17,6 +16,5 @@ class ProjetoVO
 	public $email_autor_principal; 
 	public $nome_demais_autores;  
 	public $email_demais_autores; 
-	
 }
 ?>

@@ -1,8 +1,8 @@
 <?php
+session_start();
+include_once("conexao/Fachada.class.php");
+include_once("conexao/ProjetoVO.class.php");
 
-    include_once("conexao/Fachada.class.php");
-    include_once("conexao/ProjetoVO.class.php");
-  session_start();
   #Informações gerais
 
   if(isset($_FILES['caminho_img_componente'])) { 

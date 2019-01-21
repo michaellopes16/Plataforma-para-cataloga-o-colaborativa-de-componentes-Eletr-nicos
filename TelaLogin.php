@@ -1,17 +1,17 @@
 <?php 
 #session_start();
 include_once 'loginFacebook.php';
-
 if(isset($_SESSION['face_access_token'])){
-  #echo "apagando informações do token...";
+  echo "apagando informações do token...";
   unset($_SESSION['face_access_token']);
   $_SESSION['nomeUser'] = "";  
   $_SESSION['logado'] = false;
+}else
+{
+  $_SESSION['nomeUser'] = "";  
+  $_SESSION['logado'] = false;
 }
-#echo "Nome do usuario em Longin:".$_SESSION['nomeUser']."<br>";
-#echo "<br> URL:".$loginUrl;
 ?>
-
 <!doctype html>
 <html lang="pt-br">
   <head>

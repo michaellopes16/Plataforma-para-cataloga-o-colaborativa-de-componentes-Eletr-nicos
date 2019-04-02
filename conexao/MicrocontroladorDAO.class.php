@@ -597,11 +597,30 @@ function excluirMicro($microID)
 	  	}
 	  	function exibirItem($itemAtual){
 
-			$resultado = "SELECT * FROM item WHERE nomeItem LIKE '%$itemAtual%'";
-	  		
+	  		$buscaArray = explode(' ', $itemAtual);
+	  		#print_r($buscaArray);
+	  		$resultado ='';
 	  		$conn = New Conexao;
-
+	  		$cont = 0;
+	  		foreach ($buscaArray as $key) {
+	  			if($key != ''){
+	  				if($cont >= 1)
+		  			{
+		  				$resultado .= " union ";
+		  			}
+	  				$resultado .= "SELECT * FROM item WHERE nomeItem LIKE '%$key%'";
+	  			}
+	  			else{
+	  			    if($cont == 0)
+	  				{
+	  					$resultado .= "SELECT * FROM item WHERE nomeItem LIKE '%$key%'";	
+	  				}
+	  			}
+	  			$cont ++;
+	  		}
+	  		#echo "Consulta:". $resultado;
 	  	   	$busca_resultado = mysqli_query($conn->{'conexaoBD'}(), $resultado);
+
 
 	  	   	#$row = $busca_resultado->fetch_row();
 	  	   	/* associative array */
@@ -615,12 +634,30 @@ function excluirMicro($microID)
 	  	 	    return 0;
 	  	   	}
 	  	}
-	  	  	function exibirItemPorPalavraChave($itemAtual){
+	  	 function exibirItemPorPalavraChave($itemAtual){
 
-	  			$resultado = "SELECT * FROM item WHERE palavraChave LIKE '%$itemAtual%'";
-	  	  		
-	  	  		$conn = New Conexao;
-
+	  	  	$buscaArray = explode(' ', $itemAtual);
+	  		#print_r($buscaArray);
+	  		$resultado ='';
+	  		$conn = New Conexao;
+	  		$cont = 0;
+	  		foreach ($buscaArray as $key) {
+	  			if($key != ''){
+	  				if($cont >= 1)
+		  			{
+		  				$resultado .= " union ";
+		  			}
+	  				$resultado .= "SELECT * FROM item WHERE palavraChave LIKE '%$key%'";
+	  			}else
+	  			{
+	  				if($cont == 0)
+	  				{
+	  					$resultado .= "SELECT * FROM item WHERE palavraChave LIKE '%$key%'";	
+	  				}
+	  			}
+	  			$cont ++;
+	  		}
+	  			#echo "resultado: ". $resultado;
 	  	  	   	$busca_resultado = mysqli_query($conn->{'conexaoBD'}(), $resultado);
 
 	  	  	   	#$row = $busca_resultado->fetch_row();

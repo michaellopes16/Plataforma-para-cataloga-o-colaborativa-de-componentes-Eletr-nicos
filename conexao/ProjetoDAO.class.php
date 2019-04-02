@@ -228,10 +228,30 @@ function excluirProjeto($ProjetoID)
 	}
 	function listarProjetoPorPalavraChave($itemAtual){
 
-			$resultado = "SELECT * FROM  projeto     
-			WHERE palavra_chave LIKE '%$itemAtual%'";
-			
-			$conn = New Conexao;
+
+			$buscaArray = explode(' ', $itemAtual);
+	  		#print_r($buscaArray);
+	  		$resultado ='';
+	  		$conn = New Conexao;
+	  		$cont = 0;
+	  		foreach ($buscaArray as $key) {
+	  			if($key != ''){
+	  				if($cont >= 1)
+		  			{
+		  				$resultado .= " union ";
+		  			}
+	  				$resultado .= "SELECT * FROM projeto WHERE palavra_chave LIKE '%$key%'";
+	  			}
+	  			else{
+	  			    if($cont == 0)
+	  				{
+	  					$resultado .= "SELECT * FROM projeto WHERE palavra_chave LIKE '%$key%'";	
+	  				}
+	  			}
+
+	  			$cont ++;
+	  		}
+	  			#echo "". $resultado;
 			$busca_resultado = mysqli_query($conn->{'conexaoBD'}(), $resultado) or die("Erro ao executar query na tabela projeto");
 
 	  	   	#$row = $busca_resultado->fetch_row();
@@ -249,10 +269,29 @@ function excluirProjeto($ProjetoID)
 
 	function listarProjeto($itemAtual){
 
-			$resultado = "SELECT * FROM  projeto     
-			WHERE nome LIKE '%$itemAtual%'";
-			
-			$conn = New Conexao;
+			$buscaArray = explode(' ', $itemAtual);
+	  		#print_r($buscaArray);
+	  		$resultado ='';
+	  		$conn = New Conexao;
+	  		$cont = 0;
+	  		foreach ($buscaArray as $key) {
+	  			if($key != ''){
+	  				if($cont >= 1)
+		  			{
+		  				$resultado .= " union ";
+		  			}
+	  				$resultado .= "SELECT * FROM projeto WHERE nome LIKE '%$key%'";
+	  			}
+	  			else{
+	  			    if($cont == 0)
+	  				{
+	  					$resultado .= "SELECT * FROM projeto WHERE nome LIKE '%$key%'";	
+	  				}
+	  			}
+
+	  			$cont ++;
+	  		}
+	  			#echo "". $resultado;
 			$busca_resultado = mysqli_query($conn->{'conexaoBD'}(), $resultado) or die("Erro ao executar query na tabela projeto");
 
 	  	   	#$row = $busca_resultado->fetch_row();

@@ -82,7 +82,7 @@ if(isset($_SESSION['logado']) && empty($_SESSION['logado'])){
 
          <form method="POST" action="TelaListarComponente.php" data-toggle="validator" role="form">
             <div class="input-group mb-3">
-              <input class="form-control p-2" type="search" name="busca" size="80" maxlength="90" placeholder="Buscar..." id="ID_Campo_Busca">
+              <input class="form-control p-2" type="search" name="busca" size="80" maxlength="90" placeholder="Buscar..." id="ID_Campo_Busca" required="">
               <div class="input-group-append">
                 <select class="custom-select" for="ID_Campo_Busca" id="ID_TipoDeBusca" name="tipoBusca">
                   <option value="1" selected>Por nome</option>

@@ -38,7 +38,7 @@
   "description": "an npm module for interfacing with Sublime Text",
   "devDependencies": {
     "jsdoc": "3.3.2",
-    "lodash": "3.10.0"
+    "lodash": "4.17.19"
   },
   "homepage": "https://github.com/Stephn-R/sublime",
   "keywords": [
